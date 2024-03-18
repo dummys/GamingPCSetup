@@ -527,16 +527,16 @@ Configuration GamingMinimal {
         # https://docs.microsoft.com/en-us/windows-server/security/windows-services/security-guidelines-for-disabling-system-services-in-windows-server
         # Privacy Settings
         # https://privacyamp.com/knowledge-base/windows-10-privacy-settings/
-        if (Get-Service "AxInstSV" -ErrorAction SilentlyContinue ) {
-            Service SvcAxInstSV {
-                Name   = "AxInstSV"
+        if (Get-Service "AppVClient" -ErrorAction SilentlyContinue ) {
+            Service SvcAppVClient {
+                Name   = "AppVClient"
                 State = "Stopped"
                 StartupType = "Disabled"
             }
         }
-        if (Get-Service "tzautoupdate" -ErrorAction SilentlyContinue ) {
-            Service Svctzautoupdate {
-                Name   = "tzautoupdate"
+        if (Get-Service "AxInstSV" -ErrorAction SilentlyContinue ) {
+            Service SvcAxInstSV {
+                Name   = "AxInstSV"
                 State = "Stopped"
                 StartupType = "Disabled"
             }
@@ -548,6 +548,20 @@ Configuration GamingMinimal {
                 StartupType = "Disabled"
             }
         }
+        if (Get-Service "CscService" -ErrorAction SilentlyContinue ) {
+            Service SvcCscService {
+                Name   = "CscService"
+                State = "Stopped"
+                StartupType = "Disabled"
+            }
+        }
+        if (Get-Service "DiagTrack" -ErrorAction SilentlyContinue ) {
+            Service SvcDiagTrack {
+                Name   = "DiagTrack"
+                State = "Stopped"
+                StartupType = "Disabled"
+            }
+        }
         if (Get-Service "dmwappushservice" -ErrorAction SilentlyContinue ) {
             Service Svcdmwappushservice {
                 Name   = "dmwappushservice"
@@ -555,9 +569,30 @@ Configuration GamingMinimal {
                 StartupType = "Disabled"
             }
         }
-        if (Get-Service "MapsBroker" -ErrorAction SilentlyContinue ) {
-            Service SvcMapsBroker {
-                Name   = "MapsBroker"
+        if (Get-Service "FrameServer" -ErrorAction SilentlyContinue ) {
+            Service SvcFrameServer {
+                Name   = "FrameServer"
+                State = "Stopped"
+                StartupType = "Disabled"
+            }
+        }
+        if (Get-Service "HomeGroupListener" -ErrorAction SilentlyContinue ) {
+            Service HomeGroupListener {
+                Name   = "HomeGroupListener"
+                State = "Stopped"
+                StartupType = "Manual"
+            }
+        }
+        if (Get-Service "HomeGroupProvider" -ErrorAction SilentlyContinue ) {
+            Service SvcHomeGroupProvider {
+                Name   = "HomeGroupProvider"
+                State = "Stopped"
+                StartupType = "Manual"
+            }
+        }
+        if (Get-Service "icssvc" -ErrorAction SilentlyContinue ) {
+            Service Svcicssvc {
+                Name   = "icssvc"
                 State = "Stopped"
                 StartupType = "Disabled"
             }
@@ -569,13 +604,6 @@ Configuration GamingMinimal {
                 StartupType = "Disabled"
             }
         }
-        if (Get-Service "SharedAccess" -ErrorAction SilentlyContinue ) {
-            Service SvcSharedAccess {
-                Name   = "SharedAccess"
-                State = "Stopped"
-                StartupType = "Disabled"
-            }
-        }
         if (Get-Service "lltdsvc" -ErrorAction SilentlyContinue ) {
             Service Svclltdsvc {
                 Name   = "lltdsvc"
@@ -583,9 +611,9 @@ Configuration GamingMinimal {
                 StartupType = "Disabled"
             }
         }
-        if (Get-Service "AppVClient" -ErrorAction SilentlyContinue ) {
-            Service SvcAppVClient {
-                Name   = "AppVClient"
+        if (Get-Service "MapsBroker" -ErrorAction SilentlyContinue ) {
+            Service SvcMapsBroker {
+                Name   = "MapsBroker"
                 State = "Stopped"
                 StartupType = "Disabled"
             }
@@ -597,9 +625,9 @@ Configuration GamingMinimal {
                 StartupType = "Disabled"
             }
         }
-        if (Get-Service "CscService" -ErrorAction SilentlyContinue ) {
-            Service SvcCscService {
-                Name   = "CscService"
+        if (Get-Service "NcdAutoSetup" -ErrorAction SilentlyContinue ) {
+            Service SvcNcdAutoSetup {
+                Name   = "NcdAutoSetup"
                 State = "Stopped"
                 StartupType = "Disabled"
             }
@@ -607,13 +635,6 @@ Configuration GamingMinimal {
         if (Get-Service "PhoneSvc" -ErrorAction SilentlyContinue ) {
             Service SvcPhoneSvc {
                 Name   = "PhoneSvc"
-                State = "Stopped"
-                StartupType = "Disabled"
-            }
-        }
-        if (Get-Service "Spooler" -ErrorAction SilentlyContinue ) {
-            Service SvcSpooler {
-                Name   = "Spooler"
                 State = "Stopped"
                 StartupType = "Disabled"
             }
@@ -646,34 +667,6 @@ Configuration GamingMinimal {
                 StartupType = "Disabled"
             }
         }
-        if (Get-Service "SensorDataService" -ErrorAction SilentlyContinue ) {
-            Service SvcSensorDataService {
-                Name   = "SensorDataService"
-                State = "Stopped"
-                StartupType = "Disabled"
-            }
-        }
-        if (Get-Service "SensrSvc" -ErrorAction SilentlyContinue ) {
-            Service SvcSensrSvc {
-                Name   = "SensrSvc"
-                State = "Stopped"
-                StartupType = "Disabled"
-            }
-        }
-        if (Get-Service "SensorService" -ErrorAction SilentlyContinue ) {
-            Service SvcSensorService {
-                Name   = "SensorService"
-                State = "Stopped"
-                StartupType = "Disabled"
-            }
-        }
-        if (Get-Service "ShellHWDetection" -ErrorAction SilentlyContinue ) {
-            Service SvcShellHWDetection {
-                Name   = "ShellHWDetection"
-                State = "Stopped"
-                StartupType = "Disabled"
-            }
-        }
         if (Get-Service "SCardSvr" -ErrorAction SilentlyContinue ) {
             Service SvcSCardSvr {
                 Name   = "SCardSvr"
@@ -688,51 +681,58 @@ Configuration GamingMinimal {
                 StartupType = "Disabled"
             }
         }
+        if (Get-Service "SEMgrSvc" -ErrorAction SilentlyContinue ) {
+            Service SvcSEMgrSvc {
+                Name   = "SEMgrSvc"
+                State = "Stopped"
+                StartupType = "Disabled"
+            }
+        }
+        if (Get-Service "SensorService" -ErrorAction SilentlyContinue ) {
+            Service SvcSensorService {
+                Name   = "SensorService"
+                State = "Stopped"
+                StartupType = "Disabled"
+            }
+        }
+        if (Get-Service "SensorDataService" -ErrorAction SilentlyContinue ) {
+            Service SvcSensorDataService {
+                Name   = "SensorDataService"
+                State = "Stopped"
+                StartupType = "Disabled"
+            }
+        }
+        if (Get-Service "SensrSvc" -ErrorAction SilentlyContinue ) {
+            Service SvcSensrSvc {
+                Name   = "SensrSvc"
+                State = "Stopped"
+                StartupType = "Disabled"
+            }
+        }
+        if (Get-Service "SharedAccess" -ErrorAction SilentlyContinue ) {
+            Service SvcSharedAccess {
+                Name   = "SharedAccess"
+                State = "Stopped"
+                StartupType = "Disabled"
+            }
+        }
+        if (Get-Service "ShellHWDetection" -ErrorAction SilentlyContinue ) {
+            Service SvcShellHWDetection {
+                Name   = "ShellHWDetection"
+                State = "Stopped"
+                StartupType = "Disabled"
+            }
+        }
+        if (Get-Service "Spooler" -ErrorAction SilentlyContinue ) {
+            Service SvcSpooler {
+                Name   = "Spooler"
+                State = "Stopped"
+                StartupType = "Disabled"
+            }
+        }
         if (Get-Service "SSDPSRV" -ErrorAction SilentlyContinue ) {
             Service SvcSSDPSRV {
                 Name   = "SSDPSRV"
-                State = "Stopped"
-                StartupType = "Disabled"
-            }
-        }
-        if (Get-Service "WiaRpc" -ErrorAction SilentlyContinue ) {
-            Service SvcWiaRpc {
-                Name   = "WiaRpc"
-                State = "Stopped"
-                StartupType = "Disabled"
-            }
-        }
-        if (Get-Service "TabletInputService" -ErrorAction SilentlyContinue ) {
-            Service SvcTabletInputService {
-                Name   = "TabletInputService"
-                State = "Stopped"
-                StartupType = "Disabled"
-            }
-        }
-        if (Get-Service "upnphost" -ErrorAction SilentlyContinue ) {
-            Service Svcupnphost {
-                Name   = "upnphost"
-                State = "Stopped"
-                StartupType = "Disabled"
-            }
-        }
-        if (Get-Service "UevAgentService" -ErrorAction SilentlyContinue ) {
-            Service SvcUevAgentService {
-                Name   = "UevAgentService"
-                State = "Stopped"
-                StartupType = "Disabled"
-            }
-        }
-        if (Get-Service "WalletService" -ErrorAction SilentlyContinue ) {
-            Service SvcWalletService {
-                Name   = "WalletService"
-                State = "Stopped"
-                StartupType = "Disabled"
-            }
-        }
-        if (Get-Service "FrameServer" -ErrorAction SilentlyContinue ) {
-            Service SvcFrameServer {
-                Name   = "FrameServer"
                 State = "Stopped"
                 StartupType = "Disabled"
             }
@@ -744,16 +744,51 @@ Configuration GamingMinimal {
                 StartupType = "Disabled"
             }
         }
-        if (Get-Service "wisvc" -ErrorAction SilentlyContinue ) {
-            Service Svcwisvc {
-                Name   = "wisvc"
+        if (Get-Service "TabletInputService" -ErrorAction SilentlyContinue ) {
+            Service SvcTabletInputService {
+                Name   = "TabletInputService"
                 State = "Stopped"
                 StartupType = "Disabled"
             }
         }
-        if (Get-Service "icssvc" -ErrorAction SilentlyContinue ) {
-            Service Svcicssvc {
-                Name   = "icssvc"
+        if (Get-Service "tzautoupdate" -ErrorAction SilentlyContinue ) {
+            Service Svctzautoupdate {
+                Name   = "tzautoupdate"
+                State = "Stopped"
+                StartupType = "Disabled"
+            }
+        }
+        if (Get-Service "UevAgentService" -ErrorAction SilentlyContinue ) {
+            Service SvcUevAgentService {
+                Name   = "UevAgentService"
+                State = "Stopped"
+                StartupType = "Disabled"
+            }
+        }
+        if (Get-Service "upnphost" -ErrorAction SilentlyContinue ) {
+            Service Svcupnphost {
+                Name   = "upnphost"
+                State = "Stopped"
+                StartupType = "Disabled"
+            }
+        }
+        if (Get-Service "WalletService" -ErrorAction SilentlyContinue ) {
+            Service SvcWalletService {
+                Name   = "WalletService"
+                State = "Stopped"
+                StartupType = "Disabled"
+            }
+        }
+        if (Get-Service "WiaRpc" -ErrorAction SilentlyContinue ) {
+            Service SvcWiaRpc {
+                Name   = "WiaRpc"
+                State = "Stopped"
+                StartupType = "Disabled"
+            }
+        }
+        if (Get-Service "wisvc" -ErrorAction SilentlyContinue ) {
+            Service Svcwisvc {
+                Name   = "wisvc"
                 State = "Stopped"
                 StartupType = "Disabled"
             }
@@ -763,6 +798,13 @@ Configuration GamingMinimal {
                 Name   = "WSearch"
                 State = "Stopped"
                 StartupType = "Disabled"
+            }
+        }
+        if (Get-Service "WinRM" -ErrorAction SilentlyContinue ) {
+            Service SvcWindowsRemoteManagement {
+                Name   = "WinRM"
+                State = "Running"
+                StartupType = "Automatic"
             }
         }
         if (Get-Service "XblAuthManager" -ErrorAction SilentlyContinue ) {
@@ -777,34 +819,6 @@ Configuration GamingMinimal {
                 Name   = "XblGameSave"
                 State = "Stopped"
                 StartupType = "Disabled"
-            }
-        }
-        if (Get-Service "SEMgrSvc" -ErrorAction SilentlyContinue ) {
-            Service SvcSEMgrSvc {
-                Name   = "SEMgrSvc"
-                State = "Stopped"
-                StartupType = "Disabled"
-            }
-        }
-        if (Get-Service "DiagTrack" -ErrorAction SilentlyContinue ) {
-            Service SvcDiagTrack {
-                Name   = "DiagTrack"
-                State = "Stopped"
-                StartupType = "Disabled"
-            }
-        }
-        if (Get-Service "NcdAutoSetup" -ErrorAction SilentlyContinue ) {
-            Service SvcNcdAutoSetup {
-                Name   = "NcdAutoSetup"
-                State = "Stopped"
-                StartupType = "Disabled"
-            }
-        }
-        if (Get-Service "WinRM" -ErrorAction SilentlyContinue ) {
-            Service SvcWindowsRemoteManagement {
-                Name   = "WinRM"
-                State = "Running"
-                StartupType = "Automatic"
             }
         }
         Registry DisableMulticastDNS {
@@ -936,6 +950,13 @@ Configuration GamingMinimal {
         Registry DisableAppAccountInfoAccess {
             Ensure = "Present"
             Key = "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\userAccountInformation"
+            ValueName   = "Value"
+            ValueData   = "Deny"
+            ValueType = "String"
+        }
+        Registry DisableAppLocationAccess {
+            Ensure = "Present"
+            Key = "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\location"
             ValueName   = "Value"
             ValueData   = "Deny"
             ValueType = "String"
@@ -1087,6 +1108,13 @@ Configuration GamingMinimal {
             ValueData   = "0"
             ValueType = "Dword"
         }
+        Registry DisableHibernation {
+            Ensure = "Present"
+            Key = "HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Power"
+            ValueName   = "HibernateEnabled"
+            ValueData   = "0"
+            ValueType = "Dword"
+        }
         Registry DisableShowHibernate {
             Ensure = "Present"
             Key = "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FlyoutMenuSettings"
@@ -1129,6 +1157,36 @@ Configuration GamingMinimal {
             ValueData   = "38"
             ValueType = "Dword"
         }
+        Registry EnableActivityFeed {
+            Ensure = "Present"
+            Key = "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System"
+            ValueName   = "EnableActivityFeed"
+            ValueData   = "0"
+            ValueType = "Dword"
+        }
+        Registry PublishUserActivities {
+            Ensure = "Present"
+            Key = "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System"
+            ValueName   = "PublishUserActivities"
+            ValueData   = "0"
+            ValueType = "Dword"
+        }
+        Registry UploadUserActivities {
+            Ensure = "Present"
+            Key = "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System"
+            ValueName   = "UploadUserActivities"
+            ValueData   = "0"
+            ValueType = "Dword"
+        }
+        Registry SensorPermissionState {
+            Ensure = "Present"
+            Key = "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Sensor\Overrides\{BFA794E4-F964-4FDB-90F6-51056BFE4B44}"
+            ValueName   = "SensorPermissionState"
+            ValueData   = "0"
+            ValueType = "Dword"
+        }
+
+
         #WindowsOptionalFeature PrinttoPDF {
         #    Name = "Printing-PrintToPDFServices-Features"
         #    Ensure = "Disable"
