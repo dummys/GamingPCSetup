@@ -1122,6 +1122,13 @@ Configuration GamingMinimal {
             ValueData   = "0"
             ValueType = "Dword"
         }
+        Registry Win32PrioritySeparation {
+            Ensure = "Present"
+            Key = "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\PriorityControl"
+            ValueName   = "Win32PrioritySeparation"
+            ValueData   = "38"
+            ValueType = "Dword"
+        }
         #WindowsOptionalFeature PrinttoPDF {
         #    Name = "Printing-PrintToPDFServices-Features"
         #    Ensure = "Disable"
