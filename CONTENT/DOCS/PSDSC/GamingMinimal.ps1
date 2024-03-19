@@ -1542,8 +1542,12 @@ Configuration GamingMinimal {
             ValueData   = "0"
             ValueType = "Dword"
         }
-
-
+        # delete the temp file automatically
+        Registry StoragePolicy {
+            Ensure = "Absent"
+            Key = "HKEY_USERS\${mysid}\Software\Microsoft\Windows\CurrentVersion\StorageSense\Parameters\StoragePolicy"
+            ValueName = ''
+        }
         #WindowsOptionalFeature PrinttoPDF {
         #    Name = "Printing-PrintToPDFServices-Features"
         #    Ensure = "Disable"
