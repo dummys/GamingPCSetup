@@ -1153,6 +1153,13 @@ Configuration GamingMinimal {
                 StartupType = "Manual"
             }
         }
+        if (Get-Service "Sysmain" -ErrorAction SilentlyContinue ) {
+            Service SvcSysmain {
+                Name   = "Sysmain"
+                State = "Stopped"
+                StartupType = "Disabled"
+            }
+        }
         if (Get-Service "TabletInputService" -ErrorAction SilentlyContinue ) {
             Service SvcTabletInputService {
                 Name   = "TabletInputService"
