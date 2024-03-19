@@ -16,6 +16,7 @@ param([Parameter(Mandatory=$true)] [String]$myusername)
 Configuration GamingMinimal {
     # Import the module that contains the resources we're using.
     Import-DscResource -ModuleName PsDesiredStateConfiguration
+    Import-DscResource -ModuleName ComputerManagementDsc
 
     $mysid = (New-Object System.Security.Principal.NTAccount($myusername)).Translate([System.Security.Principal.SecurityIdentifier]).value
 
@@ -141,6 +142,41 @@ Configuration GamingMinimal {
             ValueData   = "0"
             ValueType = "Dword"
         }
+        Registry DisableContentDelivery {
+            Ensure = "Present"
+            Key = "HKEY_USERS\${mysid}\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager"
+            ValueName   = "ContentDeliveryAllowed"
+            ValueData   = "0"
+            ValueType = "Dword"
+        }
+        Registry DisableOEMPreInstalledApps {
+            Ensure = "Present"
+            Key = "HKEY_USERS\${mysid}\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager"
+            ValueName   = "OemPreInstalledAppsEnabled"
+            ValueData   = "0"
+            ValueType = "Dword"
+        }
+        Registry DisablePreInstalledApps {
+            Ensure = "Present"
+            Key = "HKEY_USERS\${mysid}\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager"
+            ValueName   = "PreInstalledAppsEnabled"
+            ValueData   = "0"
+            ValueType = "Dword"
+        }
+        Registry DisablePreInstalledAppsEverEnabled {
+            Ensure = "Present"
+            Key = "HKEY_USERS\${mysid}\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager"
+            ValueName   = "PreInstalledAppsEverEnabled"
+            ValueData   = "0"
+            ValueType = "Dword"
+        }
+        Registry DisablePSilentInstalledAppsEnabled {
+            Ensure = "Present"
+            Key = "HKEY_USERS\${mysid}\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager"
+            ValueName   = "SilentInstalledAppsEnabled"
+            ValueData   = "0"
+            ValueType = "Dword"
+        }
         Registry DisableSuggestedContent1 {
             Ensure = "Present"
             Key = "HKEY_USERS\${mysid}\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager"
@@ -159,6 +195,13 @@ Configuration GamingMinimal {
             Ensure = "Present"
             Key = "HKEY_USERS\${mysid}\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager"
             ValueName   = "SubscribedContent-338396Enabled"
+            ValueData   = "0"
+            ValueType = "Dword"
+        }
+        Registry DisableSystemPaneSuggestions {
+            Ensure = "Present"
+            Key = "HKEY_USERS\${mysid}\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager"
+            ValueName   = "SystemPaneSuggestionsEnabled"
             ValueData   = "0"
             ValueType = "Dword"
         }
@@ -547,7 +590,65 @@ Configuration GamingMinimal {
             ValueData   = "0"
             ValueType = "String"
         }
-
+        Registry DisableSiuf {
+            Ensure = "Present"
+            Key = "HKEY_USERS\${mysid}\SOFTWARE\Microsoft\Siuf\Rules"
+            ValueName   = "NumberOfSIUFInPeriod"
+            ValueData   = "0"
+            ValueType = "Dword"
+        }
+        # add more info when copying files
+        Registry EnableEnthusiastMode {
+            Ensure = "Present"
+            Key = "HKEY_USERS\${mysid}\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\OperationStatusManager"
+            ValueName   = "EnthusiastMode"
+            ValueData   = "1"
+            ValueType = "Dword"
+        }
+        # Disable task view button in the status bar
+        Registry DisableShowTaskViewButton {
+            Ensure = "Present"
+            Key = "HKEY_USERS\${mysid}\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced"
+            ValueName   = "ShowTaskViewButton"
+            ValueData   = "0"
+            ValueType = "Dword"
+        }
+        # Disable people bar in the status bar
+        Registry DisablePeopleBand {
+            Ensure = "Present"
+            Key = "HKEY_USERS\${mysid}\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\People"
+            ValueName   = "PeopleBand"
+            ValueData   = "0"
+            ValueType = "Dword"
+        }
+        # Disable the news feed on status bar
+        Registry DisableNewsFeed {
+            Ensure = "Present"
+            Key = "HKEY_USERS\${mysid}\SOFTWARE\Policies\Microsoft\Windows\Windows Feeds"
+            ValueName   = "EnableFeeds"
+            ValueData   = "0"
+            ValueType = "Dword"
+        }
+        Registry DisableShellFeedsTaskbarViewMode {
+            Ensure = "Present"
+            Key = "HKEY_USERS\${mysid}\SOFTWARE\Microsoft\Windows\CurrentVersion\Feeds"
+            ValueName   = "ShellFeedsTaskbarViewMode"
+            ValueData   = "0"
+            ValueType = "Dword"
+        }
+        Registry DisableMeetNow {
+            Ensure = "Present"
+            Key = "HKEY_USERS\${mysid}\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer"
+            ValueName   = "HideSCAMeetNow"
+            ValueData   = "1"
+            ValueType = "Dword"
+        }
+        # put back the old right click menu on windows 11
+        Registry EnableOldClickMenu {
+            Ensure = "Present"
+            Key = "HKEY_USERS\${mysid}\SOFTWARE\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32"
+            ValueName   = ""
+        }
         ##########################
         # SYSTEM/MACHINE SETTINGS
         ###########################
@@ -1252,6 +1353,13 @@ Configuration GamingMinimal {
             Ensure = "Present"
             Key = "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\DataCollection"
             ValueName   = "AllowTelemetry"
+            ValueData   = "0"
+            ValueType = "Dword"
+        }
+        Registry DisableFeebackNotification {
+            Ensure = "Present"
+            Key = "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DataCollection"
+            ValueName   = "DoNotShowFeedbackNotifications"
             ValueData   = "1"
             ValueType = "Dword"
         }
@@ -1451,18 +1559,25 @@ Configuration GamingMinimal {
             ValueData   = "32"
             ValueType = "Dword"
         }
-        Registry DisableRemoteAssistance {
-            Ensure = "Present"
-            Key = "HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Remote Assistance"
-            ValueName   = "fAllowToGetHelp"
-            ValueData   = "0"
-            ValueType = "Dword"
-        }
         Registry DisableCloudSearch {
             Ensure = "Present"
             Key = "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Windows Search"
             ValueName   = "AllowCloudSearch"
             ValueData   = "0"
+            ValueType = "Dword"
+        }
+        Registry DisableWindowsConsumerFeatures {
+            Ensure = "Present"
+            Key = "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\CloudContent"
+            ValueName   = "DisableWindowsConsumerFeatures"
+            ValueData   = "1"
+            ValueType = "Dword"
+        }
+        Registry DisableDisableTailoredExperiencesWithDiagnosticData {
+            Ensure = "Present"
+            Key = "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\CloudContent"
+            ValueName   = "DisableTailoredExperiencesWithDiagnosticData"
+            ValueData   = "1"
             ValueType = "Dword"
         }
         Registry DisableFastBoot {
@@ -1542,11 +1657,130 @@ Configuration GamingMinimal {
             ValueData   = "0"
             ValueType = "Dword"
         }
+        Registry DisableAdvertisingInfoByGP {
+            Ensure = "Present"
+            Key = "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\AdvertisingInfo"
+            ValueName   = "DisabledByGroupPolicy"
+            ValueData   = "1"
+            ValueType = "Dword"
+        }
+        Registry DisableErrorReporting {
+            Ensure = "Present"
+            Key = "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\Windows Error Reporting"
+            ValueName   = "Disabled"
+            ValueData   = "1"
+            ValueType = "Dword"
+        }
+        Registry DisableRemoteAssistance {
+            Ensure = "Present"
+            Key = "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Remote Assistance"
+            ValueName   = "fAllowToGetHelp"
+            ValueData   = "0"
+            ValueType = "Dword"
+        }
+        # Enable long path 
+        Registry EnableLongPath {
+            Ensure = "Present"
+            Key = "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\FileSystem"
+            ValueName   = "LongPathsEnabled"
+            ValueData   = "1"
+            ValueType = "Dword"
+        }
+        # Wifi Sense is a spying service that phones home all nearby scanned wifi networks and your current geo location
+        Registry DisableWifiHotSpotReporting {
+            Ensure = "Present"
+            Key = "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\PolicyManager\default\Wifi\AllowWiFiHotSpotReporting"
+            ValueName   = "Value"
+            ValueData   = "0"
+            ValueType = "Dword"
+        }
+        Registry DisableWifiHotSpotSense {
+            Ensure = "Present"
+            Key = "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\PolicyManager\default\Wifi\AllowAutoConnectToWiFiSenseHotspots"
+            ValueName   = "Value"
+            ValueData   = "0"
+            ValueType = "Dword"
+        }
         # delete the temp file automatically
         Registry StoragePolicy {
             Ensure = "Absent"
             Key = "HKEY_USERS\${mysid}\Software\Microsoft\Windows\CurrentVersion\StorageSense\Parameters\StoragePolicy"
             ValueName = ''
+        }
+        ################################
+        # DISABLE SYSTEM SCHEDULED TASKS
+        ################################
+        ScheduledTask DisableMicrosoftCompatibilityAppraiser
+        {
+            TaskName            = 'Microsoft Compatibility Appraiser'
+            TaskPath            = '\Microsoft\Windows\Application Experience'
+            Enable              = $false
+        }
+        ScheduledTask DisableMareBackup
+        {
+            TaskName            = 'MareBackup'
+            TaskPath            = '\Microsoft\Windows\Application Experience'
+            Enable              = $false
+        }
+        ScheduledTask DisableStartupAppTask
+        {
+            TaskName            = 'StartupAppTask'
+            TaskPath            = '\Microsoft\Windows\Application Experience'
+            Enable              = $false
+        }
+        ScheduledTask DisablePcaPatchDbTask
+        {
+            TaskName            = 'PcaPatchDbTask'
+            TaskPath            = '\Microsoft\Windows\Application Experience'
+            Enable              = $false
+        }
+        ScheduledTask DisableProxy
+        {
+            TaskName            = 'Proxy'
+            TaskPath            = '\Microsoft\Windows\Autochk'
+            Enable              = $false
+        }
+        ScheduledTask DisableConsolidator
+        {
+            TaskName            = 'Consolidator'
+            TaskPath            = '\Microsoft\Windows\Customer Experience Improvement Program'
+            Enable              = $false
+        }
+        ScheduledTask DisableUsbCeip
+        {
+            TaskName            = 'UsbCeip'
+            TaskPath            = '\Microsoft\Windows\Customer Experience Improvement Program'
+            Enable              = $false
+        }
+        ScheduledTask DisableDiskDiagnosticDataCollector
+        {
+            TaskName            = 'Microsoft-Windows-DiskDiagnosticDataCollector'
+            TaskPath            = '\Microsoft\Windows\DiskDiagnostic'
+            Enable              = $false
+        }
+        ScheduledTask DisableDmClient
+        {
+            TaskName            = 'DmClient'
+            TaskPath            = '\Microsoft\Windows\Feedback\Siuf'
+            Enable              = $false
+        }
+        ScheduledTask DisableDmClientOnScenarioDownload
+        {
+            TaskName            = 'DmClientOnScenarioDownload'
+            TaskPath            = '\Microsoft\Windows\Feedback\Siuf'
+            Enable              = $false
+        }
+        ScheduledTask DisableQueueReporting
+        {
+            TaskName            = 'QueueReporting'
+            TaskPath            = '\Microsoft\Windows\Windows Error Reporting'
+            Enable              = $false
+        }
+        ScheduledTask DisableMapsUpdateTask
+        {
+            TaskName            = 'MapsUpdateTask'
+            TaskPath            = '\Microsoft\Windows\Maps'
+            Enable              = $false
         }
         #WindowsOptionalFeature PrinttoPDF {
         #    Name = "Printing-PrintToPDFServices-Features"
