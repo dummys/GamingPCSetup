@@ -351,6 +351,34 @@ Configuration GamingMinimal {
             ValueData   = "0"
             ValueType = "Dword"
         }
+        Registry DisableGameBarFSEBehavior {
+            Ensure = "Present"
+            Key = "HKEY_USERS\${mysid}\System\GameConfigStore"
+            ValueName   = "GameDVR_FSEBehavior"
+            ValueData   = "2"
+            ValueType = "Dword"
+        }
+        Registry DisableGameBarDXI {
+            Ensure = "Present"
+            Key = "HKEY_USERS\${mysid}\System\GameConfigStore"
+            ValueName   = "GameDVR_DXGIHonorFSEWindowsCompatible"
+            ValueData   = "1"
+            ValueType = "Dword"
+        }
+        Registry DisableGameBarFSEBehaviorMode {
+            Ensure = "Present"
+            Key = "HKEY_USERS\${mysid}\System\GameConfigStore"
+            ValueName   = "GameDVR_HonorUserFSEBehaviorMode"
+            ValueData   = "1"
+            ValueType = "Dword"
+        }
+        Registry DisableGameBarFeatureFlag {
+            Ensure = "Present"
+            Key = "HKEY_USERS\${mysid}\System\GameConfigStore"
+            ValueName   = "GameDVR_EFSEFeatureFlags"
+            ValueData   = "0"
+            ValueType = "Dword"
+        }
         Registry DisableGameBarControllerShortcut {
             Ensure = "Present"
             Key = "HKEY_USERS\${mysid}\Software\Microsoft\GameBar"
