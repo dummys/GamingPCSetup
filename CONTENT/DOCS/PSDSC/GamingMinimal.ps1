@@ -527,9 +527,65 @@ Configuration GamingMinimal {
         # https://docs.microsoft.com/en-us/windows-server/security/windows-services/security-guidelines-for-disabling-system-services-in-windows-server
         # Privacy Settings
         # https://privacyamp.com/knowledge-base/windows-10-privacy-settings/
+        if (Get-Service "AJRouter" -ErrorAction SilentlyContinue ) {
+            Service SvcAJRouter {
+                Name   = "AJRouter"
+                State = "Stopped"
+                StartupType = "Disabled"
+            }
+        }
+        if (Get-Service "ALG" -ErrorAction SilentlyContinue ) {
+            Service SvcALG {
+                Name   = "ALG"
+                State = "Stopped"
+                StartupType = "Manual"
+            }
+        }
+        if (Get-Service "AppIDSvc" -ErrorAction SilentlyContinue ) {
+            Service SvcAppIDSvc {
+                Name   = "AppIDSvc"
+                State = "Stopped"
+                StartupType = "Manual"
+            }
+        }
+        if (Get-Service "Appinfo" -ErrorAction SilentlyContinue ) {
+            Service SvcAppinfo {
+                Name   = "Appinfo"
+                State = "Stopped"
+                StartupType = "Manual"
+            }
+        }
+        if (Get-Service "AppMgmt" -ErrorAction SilentlyContinue ) {
+            Service SvcAppMgmt {
+                Name   = "AppMgmt"
+                State = "Stopped"
+                StartupType = "Manual"
+            }
+        }
+        if (Get-Service "AppReadiness" -ErrorAction SilentlyContinue ) {
+            Service SvcAppReadiness {
+                Name   = "AppReadiness"
+                State = "Stopped"
+                StartupType = "Disabled"
+            }
+        }
         if (Get-Service "AppVClient" -ErrorAction SilentlyContinue ) {
             Service SvcAppVClient {
                 Name   = "AppVClient"
+                State = "Stopped"
+                StartupType = "Disabled"
+            }
+        }
+        if (Get-Service "AppXSvc" -ErrorAction SilentlyContinue ) {
+            Service SvcAppXSvc {
+                Name   = "AppXSvc"
+                State = "Stopped"
+                StartupType = "Manual"
+            }
+        }
+        if (Get-Service "AssignedAccessManagerSvc" -ErrorAction SilentlyContinue ) {
+            Service SvcAssignedAccessManagerSvc {
+                Name   = "AssignedAccessManagerSvc"
                 State = "Stopped"
                 StartupType = "Disabled"
             }
@@ -539,6 +595,27 @@ Configuration GamingMinimal {
                 Name   = "AxInstSV"
                 State = "Stopped"
                 StartupType = "Disabled"
+            }
+        }
+        if (Get-Service "BDESVC" -ErrorAction SilentlyContinue ) {
+            Service SvcBDESVC {
+                Name   = "BDESVC"
+                State = "Stopped"
+                StartupType = "Manual"
+            }
+        }
+        if (Get-Service "Browser" -ErrorAction SilentlyContinue ) {
+            Service SvcBrowser {
+                Name   = "Browser"
+                State = "Stopped"
+                StartupType = "Manual"
+            }
+        }
+        if (Get-Service "BTAGService" -ErrorAction SilentlyContinue ) {
+            Service SvcBTAGService {
+                Name   = "BTAGService"
+                State = "Stopped"
+                StartupType = "Manual"
             }
         }
         if (Get-Service "bthserv" -ErrorAction SilentlyContinue ) {
@@ -555,11 +632,88 @@ Configuration GamingMinimal {
                 StartupType = "Disabled"
             }
         }
+        if (Get-Service "CDPSvc" -ErrorAction SilentlyContinue ) {
+            Service SvcCDPSvc {
+                Name   = "CDPSvc"
+                State = "Stopped"
+                StartupType = "Manual"
+            }
+        }
+        if (Get-Service "CertPropSvc" -ErrorAction SilentlyContinue ) {
+            Service SvcCertPropSvc {
+                Name   = "CertPropSvc"
+                State = "Stopped"
+                StartupType = "Manual"
+            }
+        }
+        if (Get-Service "ClipSVC" -ErrorAction SilentlyContinue ) {
+            Service SvcCertPropSvc {
+                Name   = "ClipSVC"
+                State = "Stopped"
+                StartupType = "Manual"
+            }
+        }
+        if (Get-Service "COMSysApp" -ErrorAction SilentlyContinue ) {
+            Service SvcCOMSysApp {
+                Name   = "COMSysApp"
+                State = "Stopped"
+                StartupType = "Manual"
+            }
+        }
+        if (Get-Service "DcpSvc" -ErrorAction SilentlyContinue ) {
+            Service SvcDcpSvc {
+                Name   = "DcpSvc"
+                State = "Stopped"
+                StartupType = "Manual"
+            }
+        }
+        if (Get-Service "DeviceAssociationService" -ErrorAction SilentlyContinue ) {
+            Service SvcDeviceAssociationService {
+                Name   = "DeviceAssociationService"
+                State = "Stopped"
+                StartupType = "Manual"
+            }
+        }
+        if (Get-Service "DeviceInstall" -ErrorAction SilentlyContinue ) {
+            Service SvcDeviceInstall {
+                Name   = "DeviceInstall"
+                State = "Stopped"
+                StartupType = "Manual"
+            }
+        }
+        if (Get-Service "DevQueryBroker" -ErrorAction SilentlyContinue ) {
+            Service SvcDevQueryBroker {
+                Name   = "DevQueryBroker"
+                State = "Stopped"
+                StartupType = "Manual"
+            }
+        }
         if (Get-Service "DiagTrack" -ErrorAction SilentlyContinue ) {
             Service SvcDiagTrack {
                 Name   = "DiagTrack"
                 State = "Stopped"
                 StartupType = "Disabled"
+            }
+        }
+        if (Get-Service "DialogBlockingService" -ErrorAction SilentlyContinue ) {
+            Service SvcDialogBlockingService {
+                Name   = "DialogBlockingService"
+                State = "Stopped"
+                StartupType = "Disabled"
+            }
+        }
+        if (Get-Service "DisplayEnhancementService" -ErrorAction SilentlyContinue ) {
+            Service SvcDisplayEnhancementService {
+                Name   = "DisplayEnhancementService"
+                State = "Stopped"
+                StartupType = "Manual"
+            }
+        }
+        if (Get-Service "DmEnrollmentSvc" -ErrorAction SilentlyContinue ) {
+            Service SvcDmEnrollmentSvc {
+                Name   = "DmEnrollmentSvc"
+                State = "Stopped"
+                StartupType = "Manual"
             }
         }
         if (Get-Service "dmwappushservice" -ErrorAction SilentlyContinue ) {
@@ -569,11 +723,67 @@ Configuration GamingMinimal {
                 StartupType = "Disabled"
             }
         }
+        if (Get-Service "DsmSvc" -ErrorAction SilentlyContinue ) {
+            Service SvcDsmSvc {
+                Name   = "DsmSvc"
+                State = "Stopped"
+                StartupType = "Manual"
+            }
+        }
+        if (Get-Service "DsSvc" -ErrorAction SilentlyContinue ) {
+            Service SvcDsSvc {
+                Name   = "DsSvc"
+                State = "Stopped"
+                StartupType = "Manual"
+            }
+        }
+        if (Get-Service "EapHost" -ErrorAction SilentlyContinue ) {
+            Service SvcEapHost {
+                Name   = "EapHost"
+                State = "Stopped"
+                StartupType = "Manual"
+            }
+        }
+        if (Get-Service "EFS" -ErrorAction SilentlyContinue ) {
+            Service SvcEFS {
+                Name   = "EFS"
+                State = "Stopped"
+                StartupType = "Manual"
+            }
+        }
+        if (Get-Service "EntAppSvc" -ErrorAction SilentlyContinue ) {
+            Service SvcEntAppSvc {
+                Name   = "EntAppSvc"
+                State = "Stopped"
+                StartupType = "Manual"
+            }
+        }
+        if (Get-Service "Fax" -ErrorAction SilentlyContinue ) {
+            Service SvcFax {
+                Name   = "Fax"
+                State = "Stopped"
+                StartupType = "Manual"
+            }
+        }
+        if (Get-Service "FDResPub" -ErrorAction SilentlyContinue ) {
+            Service SvcFDResPub {
+                Name   = "FDResPub"
+                State = "Stopped"
+                StartupType = "Manual"
+            }
+        }
         if (Get-Service "FrameServer" -ErrorAction SilentlyContinue ) {
             Service SvcFrameServer {
                 Name   = "FrameServer"
                 State = "Stopped"
                 StartupType = "Disabled"
+            }
+        }
+        if (Get-Service "FrameServerMonitor" -ErrorAction SilentlyContinue ) {
+            Service SvcFrameServerMonitor {
+                Name   = "FrameServerMonitor"
+                State = "Stopped"
+                StartupType = "Manual"
             }
         }
         if (Get-Service "HomeGroupListener" -ErrorAction SilentlyContinue ) {
@@ -590,11 +800,53 @@ Configuration GamingMinimal {
                 StartupType = "Manual"
             }
         }
+        if (Get-Service "HvHost" -ErrorAction SilentlyContinue ) {
+            Service SvcHvHost {
+                Name   = "HvHost"
+                State = "Stopped"
+                StartupType = "Manual"
+            }
+        }
         if (Get-Service "icssvc" -ErrorAction SilentlyContinue ) {
             Service Svcicssvc {
                 Name   = "icssvc"
                 State = "Stopped"
                 StartupType = "Disabled"
+            }
+        }
+        if (Get-Service "IEEtwCollectorService" -ErrorAction SilentlyContinue ) {
+            Service SvcIEEtwCollectorService {
+                Name   = "IEEtwCollectorService"
+                State = "Stopped"
+                StartupType = "Manual"
+            }
+        }
+        if (Get-Service "IKEEXT" -ErrorAction SilentlyContinue ) {
+            Service SvcIKEEXT {
+                Name   = "IKEEXT"
+                State = "Stopped"
+                StartupType = "Manual"
+            }
+        }
+        if (Get-Service "InstallService" -ErrorAction SilentlyContinue ) {
+            Service SvcInstallService {
+                Name   = "InstallService"
+                State = "Stopped"
+                StartupType = "Manual"
+            }
+        }
+        if (Get-Service "InventorySvc" -ErrorAction SilentlyContinue ) {
+            Service SvcInventorySvc {
+                Name   = "InventorySvc"
+                State = "Stopped"
+                StartupType = "Manual"
+            }
+        }
+        if (Get-Service "IpxlatCfgSvc" -ErrorAction SilentlyContinue ) {
+            Service SvcIpxlatCfgSvc {
+                Name   = "IpxlatCfgSvc"
+                State = "Stopped"
+                StartupType = "Manual"
             }
         }
         if (Get-Service "lfsvc" -ErrorAction SilentlyContinue ) {
@@ -727,7 +979,7 @@ Configuration GamingMinimal {
             Service SvcSpooler {
                 Name   = "Spooler"
                 State = "Stopped"
-                StartupType = "Disabled"
+                StartupType = "Manual"
             }
         }
         if (Get-Service "SSDPSRV" -ErrorAction SilentlyContinue ) {
@@ -1161,20 +1413,6 @@ Configuration GamingMinimal {
             Ensure = "Present"
             Key = "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System"
             ValueName   = "EnableActivityFeed"
-            ValueData   = "0"
-            ValueType = "Dword"
-        }
-        Registry PublishUserActivities {
-            Ensure = "Present"
-            Key = "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System"
-            ValueName   = "PublishUserActivities"
-            ValueData   = "0"
-            ValueType = "Dword"
-        }
-        Registry UploadUserActivities {
-            Ensure = "Present"
-            Key = "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System"
-            ValueName   = "UploadUserActivities"
             ValueData   = "0"
             ValueType = "Dword"
         }
