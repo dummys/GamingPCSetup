@@ -1708,6 +1708,30 @@ Configuration GamingMinimal {
             ValueData   = "0"
             ValueType = "Dword"
         }
+        # Disable D3 support on SATA/NVMEs while using Modern Standby
+        Registry DisableD3Support {
+            Ensure = "Present"
+            Key = "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Storage"
+            ValueName   = "StorageD3InModernStandby"
+            ValueData   = "0"
+            ValueType = "Dword"
+        }
+        # Disable IdlePowerMode for stornvme.sys (storage devices) - the device will never enter a low-power state
+        Registry DisableIdlePowerMode {
+            Ensure = "Present"
+            Key = "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\stornvme\Parameters\Device"
+            ValueName   = "IdlePowerMode"
+            ValueData   = "0"
+            ValueType = "Dword"
+        }
+        # Disable power throttling
+        Registry DisableIdlePowerMode {
+            Ensure = "Present"
+            Key = "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Power\PowerThrottling"
+            ValueName   = "PowerThrottlingOff"
+            ValueData   = "1"
+            ValueType = "Dword"
+        }
         # delete the temp file automatically
         Registry StoragePolicy {
             Ensure = "Absent"
