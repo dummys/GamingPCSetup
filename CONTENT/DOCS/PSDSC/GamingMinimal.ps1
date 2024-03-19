@@ -548,13 +548,6 @@ Configuration GamingMinimal {
                 StartupType = "Manual"
             }
         }
-        if (Get-Service "Appinfo" -ErrorAction SilentlyContinue ) {
-            Service SvcAppinfo {
-                Name   = "Appinfo"
-                State = "Stopped"
-                StartupType = "Manual"
-            }
-        }
         if (Get-Service "AppMgmt" -ErrorAction SilentlyContinue ) {
             Service SvcAppMgmt {
                 Name   = "AppMgmt"
@@ -574,13 +567,6 @@ Configuration GamingMinimal {
                 Name   = "AppVClient"
                 State = "Stopped"
                 StartupType = "Disabled"
-            }
-        }
-        if (Get-Service "AppXSvc" -ErrorAction SilentlyContinue ) {
-            Service SvcAppXSvc {
-                Name   = "AppXSvc"
-                State = "Stopped"
-                StartupType = "Manual"
             }
         }
         if (Get-Service "AssignedAccessManagerSvc" -ErrorAction SilentlyContinue ) {
@@ -604,13 +590,6 @@ Configuration GamingMinimal {
                 StartupType = "Manual"
             }
         }
-        if (Get-Service "Browser" -ErrorAction SilentlyContinue ) {
-            Service SvcBrowser {
-                Name   = "Browser"
-                State = "Stopped"
-                StartupType = "Manual"
-            }
-        }
         if (Get-Service "BTAGService" -ErrorAction SilentlyContinue ) {
             Service SvcBTAGService {
                 Name   = "BTAGService"
@@ -623,6 +602,13 @@ Configuration GamingMinimal {
                 Name   = "bthserv"
                 State = "Stopped"
                 StartupType = "Disabled"
+            }
+        }
+        if (Get-Service "camsvc" -ErrorAction SilentlyContinue ) {
+            Service Svccamsvc {
+                Name   = "camsvc"
+                State = "Stopped"
+                StartupType = "Manual"
             }
         }
         if (Get-Service "CscService" -ErrorAction SilentlyContinue ) {
@@ -647,7 +633,7 @@ Configuration GamingMinimal {
             }
         }
         if (Get-Service "ClipSVC" -ErrorAction SilentlyContinue ) {
-            Service SvcCertPropSvc {
+            Service SvcClipSVC {
                 Name   = "ClipSVC"
                 State = "Stopped"
                 StartupType = "Manual"
@@ -788,7 +774,7 @@ Configuration GamingMinimal {
         }
         if (Get-Service "HomeGroupListener" -ErrorAction SilentlyContinue ) {
             Service HomeGroupListener {
-                Name   = "HomeGroupListener"
+                Name  = "HomeGroupListener"
                 State = "Stopped"
                 StartupType = "Manual"
             }
@@ -856,6 +842,13 @@ Configuration GamingMinimal {
                 StartupType = "Disabled"
             }
         }
+        if (Get-Service "LicenseManager" -ErrorAction SilentlyContinue ) {
+            Service SvcLicenseManager {
+                Name   = "LicenseManager"
+                State = "Stopped"
+                StartupType = "Manual"
+            }
+        }
         if (Get-Service "lltdsvc" -ErrorAction SilentlyContinue ) {
             Service Svclltdsvc {
                 Name   = "lltdsvc"
@@ -863,11 +856,25 @@ Configuration GamingMinimal {
                 StartupType = "Disabled"
             }
         }
+        if (Get-Service "lmhosts" -ErrorAction SilentlyContinue ) {
+            Service Svclmhosts {
+                Name   = "lmhosts"
+                State = "Stopped"
+                StartupType = "Manual"
+            }
+        }
         if (Get-Service "MapsBroker" -ErrorAction SilentlyContinue ) {
             Service SvcMapsBroker {
                 Name   = "MapsBroker"
                 State = "Stopped"
                 StartupType = "Disabled"
+            }
+        }
+        if (Get-Service "MSDTC" -ErrorAction SilentlyContinue ) {
+            Service SvcMSDTC {
+                Name   = "MSDTC"
+                State = "Stopped"
+                StartupType = "Manual"
             }
         }
         if (Get-Service "NetTcpPortSharing" -ErrorAction SilentlyContinue ) {
@@ -891,6 +898,13 @@ Configuration GamingMinimal {
                 StartupType = "Disabled"
             }
         }
+        if (Get-Service "PlugPlay" -ErrorAction SilentlyContinue ) {
+            Service SvcPlugPlay {
+                Name   = "PlugPlay"
+                State = "Stopped"
+                StartupType = "Manual"
+            }
+        }
         if (Get-Service "PrintNotify" -ErrorAction SilentlyContinue ) {
             Service SvcPrintNotify {
                 Name   = "PrintNotify"
@@ -905,16 +919,23 @@ Configuration GamingMinimal {
                 StartupType = "Disabled"
             }
         }
-        if (Get-Service "RmSvc" -ErrorAction SilentlyContinue ) {
-            Service SvcRmSvc {
-                Name   = "RmSvc"
+        if (Get-Service "RasMan" -ErrorAction SilentlyContinue ) {
+            Service SvcRasMan {
+                Name   = "RasMan"
                 State = "Stopped"
-                StartupType = "Disabled"
+                StartupType = "Manual"
             }
         }
         if (Get-Service "RemoteAccess" -ErrorAction SilentlyContinue ) {
             Service SvcRemoteAccess {
                 Name   = "RemoteAccess"
+                State = "Stopped"
+                StartupType = "Disabled"
+            }
+        }
+        if (Get-Service "RmSvc" -ErrorAction SilentlyContinue ) {
+            Service SvcRmSvc {
+                Name   = "RmSvc"
                 State = "Stopped"
                 StartupType = "Disabled"
             }
@@ -996,11 +1017,32 @@ Configuration GamingMinimal {
                 StartupType = "Disabled"
             }
         }
+        if (Get-Service "StorSvc" -ErrorAction SilentlyContinue ) {
+            Service SvcStorSvc {
+                Name   = "StorSvc"
+                State = "Stopped"
+                StartupType = "Manual"
+            }
+        }
         if (Get-Service "TabletInputService" -ErrorAction SilentlyContinue ) {
             Service SvcTabletInputService {
                 Name   = "TabletInputService"
                 State = "Stopped"
                 StartupType = "Disabled"
+            }
+        }
+        if (Get-Service "TimeBroker" -ErrorAction SilentlyContinue ) {
+            Service SvcTimeBroker {
+                Name   = "TimeBroker"
+                State = "Stopped"
+                StartupType = "Manual"
+            }
+        }
+        if (Get-Service "TokenBroker" -ErrorAction SilentlyContinue ) {
+            Service SvcTokenBroker {
+                Name   = "TokenBroker"
+                State = "Stopped"
+                StartupType = "Manual"
             }
         }
         if (Get-Service "tzautoupdate" -ErrorAction SilentlyContinue ) {
@@ -1017,11 +1059,25 @@ Configuration GamingMinimal {
                 StartupType = "Disabled"
             }
         }
+        if (Get-Service "UI0Detect" -ErrorAction SilentlyContinue ) {
+            Service SvcUI0Detect {
+                Name   = "UI0Detect"
+                State = "Stopped"
+                StartupType = "Manual"
+            }
+        }
         if (Get-Service "upnphost" -ErrorAction SilentlyContinue ) {
             Service Svcupnphost {
                 Name   = "upnphost"
                 State = "Stopped"
                 StartupType = "Disabled"
+            }
+        }
+        if (Get-Service "UsoSvc" -ErrorAction SilentlyContinue ) {
+            Service SvcUsoSvc {
+                Name   = "UsoSvc"
+                State = "Stopped"
+                StartupType = "Manual"
             }
         }
         if (Get-Service "WalletService" -ErrorAction SilentlyContinue ) {
@@ -1031,23 +1087,23 @@ Configuration GamingMinimal {
                 StartupType = "Disabled"
             }
         }
+        if (Get-Service "WcsPlugInService" -ErrorAction SilentlyContinue ) {
+            Service SvcWcsPlugInService {
+                Name   = "WcsPlugInService"
+                State = "Stopped"
+                StartupType = "Manual"
+            }
+        }
+        if (Get-Service "webthreatdefsvc" -ErrorAction SilentlyContinue ) {
+            Service Svcwebthreatdefsvc {
+                Name   = "webthreatdefsvc"
+                State = "Stopped"
+                StartupType = "Manual"
+            }
+        }
         if (Get-Service "WiaRpc" -ErrorAction SilentlyContinue ) {
             Service SvcWiaRpc {
                 Name   = "WiaRpc"
-                State = "Stopped"
-                StartupType = "Disabled"
-            }
-        }
-        if (Get-Service "wisvc" -ErrorAction SilentlyContinue ) {
-            Service Svcwisvc {
-                Name   = "wisvc"
-                State = "Stopped"
-                StartupType = "Disabled"
-            }
-        }
-        if (Get-Service "WSearch" -ErrorAction SilentlyContinue ) {
-            Service SvcWSearch {
-                Name   = "WSearch"
                 State = "Stopped"
                 StartupType = "Disabled"
             }
@@ -1057,6 +1113,41 @@ Configuration GamingMinimal {
                 Name   = "WinRM"
                 State = "Running"
                 StartupType = "Automatic"
+            }
+        }
+        if (Get-Service "wisvc" -ErrorAction SilentlyContinue ) {
+            Service Svcwisvc {
+                Name   = "wisvc"
+                State = "Stopped"
+                StartupType = "Disabled"
+            }
+        }
+        if (Get-Service "WpnService" -ErrorAction SilentlyContinue ) {
+            Service SvcWpnService {
+                Name   = "WpnService"
+                State = "Stopped"
+                StartupType = "Manual"
+            }
+        }
+        if (Get-Service "WSearch" -ErrorAction SilentlyContinue ) {
+            Service SvcWSearch {
+                Name   = "WSearch"
+                State = "Stopped"
+                StartupType = "Disabled"
+            }
+        }
+        if (Get-Service "WSService" -ErrorAction SilentlyContinue ) {
+            Service SvcWSService {
+                Name   = "WSService"
+                State = "Stopped"
+                StartupType = "Manual"
+            }
+        }
+        if (Get-Service "wudfsvc" -ErrorAction SilentlyContinue ) {
+            Service Svcwudfsvc {
+                Name   = "wudfsvc"
+                State = "Stopped"
+                StartupType = "Manual"
             }
         }
         if (Get-Service "XblAuthManager" -ErrorAction SilentlyContinue ) {
