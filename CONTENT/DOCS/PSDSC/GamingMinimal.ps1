@@ -1738,6 +1738,16 @@ Configuration GamingMinimal {
             Key = "HKEY_USERS\${mysid}\Software\Microsoft\Windows\CurrentVersion\StorageSense\Parameters\StoragePolicy"
             ValueName = ''
         }
+        Registry DisableThreadDPC {
+            Ensure = "Present"
+            Key = "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\kernel"
+            ValueName   = "ThreadDpcEnable"
+            ValueData   = "0"
+            ValueType = "Dword"
+        }
+        # https://www.youtube.com/watch?v=-z7iBgm1hec
+        # Disable ThreadDPC
+
         ################################
         # DISABLE SYSTEM SCHEDULED TASKS
         ################################
