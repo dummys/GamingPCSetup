@@ -1724,19 +1724,12 @@ Configuration GamingMinimal {
             ValueData   = "0"
             ValueType = "Dword"
         }
-        # Disable power throttling
-        Registry DisableIdlePowerMode {
-            Ensure = "Present"
-            Key = "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Power\PowerThrottling"
-            ValueName   = "PowerThrottlingOff"
-            ValueData   = "1"
-            ValueType = "Dword"
-        }
         # delete the temp file automatically
         Registry StoragePolicy {
             Ensure = "Absent"
             Key = "HKEY_USERS\${mysid}\Software\Microsoft\Windows\CurrentVersion\StorageSense\Parameters\StoragePolicy"
             ValueName = ''
+            Force = $true
         }
         Registry DisableThreadDPC {
             Ensure = "Present"
