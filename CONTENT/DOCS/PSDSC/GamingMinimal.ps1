@@ -845,6 +845,13 @@ Configuration GamingMinimal {
                 StartupType = "Disabled"
             }
         }
+        if (Get-Service "DPS" -ErrorAction SilentlyContinue ) {
+            Service SvcDPS {
+                Name   = "DPS"
+                State = "Stopped"
+                StartupType = "Disabled"
+            }
+        }
         if (Get-Service "DsmSvc" -ErrorAction SilentlyContinue ) {
             Service SvcDsmSvc {
                 Name   = "DsmSvc"
