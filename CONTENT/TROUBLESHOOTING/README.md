@@ -2,6 +2,7 @@
 
 This section contains information that may help identify and resolve different computer systems, component and electrical issues
 
+* [Building and Using Intel® Performance Counter Monitor (Intel® PCM) on Windows](IntelPCM.md)
 * [Electrical Interference](ELECTRICALINTERFERENCE.MD)
 * [Media Playback](MEDIAPLAYBACK/README.md)
 * [Video Card](VIDEOCARD.md)
@@ -19,6 +20,13 @@ This section contains information that may help identify and resolve different c
   * Windows Sysinternals, Microsoft
     * Sysinternals utilities help you manage, troubleshoot and diagnose your Windows systems and applications.
     * https://docs.microsoft.com/en-us/sysinternals/
+  * Microsoft diskspd
+    * DiskSpd is a storage performance tool from the Windows, Windows Server and Cloud Server Infrastructure engineering teams at Microsoft. The tool CrystalDiskMark uses DiskSpd under the hood.
+    * https://github.com/microsoft/diskspd
+    * https://github.com/Microsoft/diskspd/wiki
+  * Microsoft ctsTraffic
+    * ctsTraffic is a highly scalable client/server networking tool giving detailed performance and reliability analytics.
+    * https://github.com/microsoft/ctsTraffic
   * Microsoft Performance HUD
     * A real-time performance profiler that detects and identifies the source of high resource usage, GDI leaks, memory leaks and more.
     * https://www.microsoft.com/en-us/download/100813
@@ -35,6 +43,10 @@ This section contains information that may help identify and resolve different c
     * https://graphics.stanford.edu/~mdfisher/GPUView.html
   * Intel® Extreme Tuning Utility - Intel® XTU
     * https://downloadcenter.intel.com/download/24075/Intel-Extreme-Tuning-Utility-Intel-XTU
+  * Intel® Performance Counter Monitor (Intel® PCM)
+     * Intel® Performance Counter Monitor - A Better Way to Measure CPU Utilization: Provides metrics for CPU cache hits and misses, PCIe metrics such as bandwidth per device (for select processor families)
+     * https://www.intel.com/content/www/us/en/developer/articles/tool/performance-counter-monitor.html
+     * https://github.com/intel/pcm
   * HWiNFO Diagnostic Software
     * https://www.hwinfo.com/download/
   * FIO - Flexible I/O tester

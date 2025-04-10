@@ -13,6 +13,10 @@
       ```
       Add-MpPreference -ExclusionPath $env:LOCALAPPDATA"\Temp\NVIDIA Corporation\NV_Cache"
       Add-MpPreference -ExclusionPath $env:PROGRAMDATA"\NVIDIA Corporation\NV_Cache"
+      Add-MpPreference -ExclusionPath $env:LOCALAPPDATA"\AMD\DX9Cache"
+      Add-MpPreference -ExclusionPath $env:LOCALAPPDATA"\AMD\DxCache"
+      Add-MpPreference -ExclusionPath $env:LOCALAPPDATA"\AMD\DxcCache"
+      Add-MpPreference -ExclusionPath $env:LOCALAPPDATA"\AMD\OglCache"
       Add-MpPreference -ExclusionPath $env:windir"\SoftwareDistribution\Datastore\Datastore.edb"
       Add-MpPreference -ExclusionPath $env:windir"\SoftwareDistribution\Datastore\Logs\Edb*.jrs"
       Add-MpPreference -ExclusionPath $env:windir"\SoftwareDistribution\Datastore\Logs\Edb.chk"
@@ -111,17 +115,27 @@
          powercfg -duplicatescheme e9a42b02-d5df-448d-aa00-03f14749eb61
          Go to Windows power options and enable Ultimate Performance power plan.
          ```
-14. Disable Windows Updates
+14. Core Parking (Windows 11 and later)
+    * Starting with Windows 11 all built-in power plans have core parking enabled by default including the High Performance and Ultimate Performance power plans.
+    * Setting Core Parking Min Cores value to 100% will disable Windows core parking algorithm, this can be configured for both P-Cores (CPMINCORES) and E-Cores (CPMINCORES1).
+    * Windows 11 has many scheduler optimizations such as those used with Intel Thread Director, these settings may influence those optimizations.
+         ```
+         Run the following commands using cmd.exe as administrator to disable core parking on the current power plan.
+         powercfg -setacvalueindex scheme_current sub_processor CPMINCORES 100
+         powercfg -setacvalueindex scheme_current sub_processor CPMINCORES1 100
+         powercfg -setactive scheme_current
+         ```
+15. Disable Windows Updates
     * Registry change below will stop windows from downloading and installing new updates, it also prevents forced updates after X days (paused updates).
       * This sets a custom Windows Server Update Services (WSUS) configuration to null value, so it always returns "up to date" and disables store automatic app updates.
-      * This is more ideal than trying to disable all the windows update services (wuaserv, waasmedicsvc, usosvc etc) and scheduled tasks that re-enable/initiate update services.
+      * This is more ideal than trying to disable all the windows update services (wuaserv, waasmedicsvc, usosvc etc) and scheduled tasks that restore windows update services.
       * Reference: https://learn.microsoft.com/en-us/windows/iot/iot-enterprise/soft-real-time/soft-real-time-device
     ```
     Windows Registry Editor Version 5.00
 
     [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate]
     "ExcludeWUDriversInQualityUpdate"=dword:00000001
-    "DoNotConnectToWindowsUpdateInternetLocations"=dword:00000000
+    "DoNotConnectToWindowsUpdateInternetLocations"=dword:00000001
     "DisableWindowsUpdateAccess"=dword:00000001
     "WUServer"=" "
     "WUStatusServer"=" "
@@ -133,7 +147,8 @@
     [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsStore\WindowsUpdate]
     "AutoDownload"=dword:00000002
     ```
-15. Disable Automatic Driver Downloads and Updates
+    Use this to disable both automatic driver updates and windows updates [disableautomaticupdates.reg](disableautomaticupdates.reg)
+16. Disable Automatic Driver Downloads and Updates
     * This is useful if you want absolute control of your installed drivers, windows will silently install and change drivers unless you're paying very close attention to the Windows Updates summary which adds variables to testing, benchmarks and experience.
     * Some of the most notable being AMD and Nvidia video drivers, you'll also see attempts to install new mouse HID drivers and their CoInstallers (Razer etc). Please note device drivers can be updated without CoInstallers (e.g. Razer Synapse) being installed, evidence in Device Manager in Human Interface Device entries.
     ```
@@ -152,4 +167,16 @@
     [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Device Metadata]
     "PreventDeviceMetadataFromNetwork"=dword:00000001
     ```
-17. Reconnect your network ethernet cable, continue onto the next process.
+    Use this to disable both automatic driver updates and windows updates [disableautomaticupdates.reg](disableautomaticupdates.reg)
+17. Disable Co-Installers (Optional, recommended to disabled automatic driver updates instead)
+    * Disables the Windows plug and play feature that performs additional software installation processes when a new device is connected to your computer. The most common example of this Razer Synapse setup starting when you connect a new device.
+    * Having this feature disabled will prevent Windows from loading software like Razer Synapse _even if it was already added to your system through automatic updates_, to prevent this software from being automatically downloaded in the first place disable automatic driver downloads and updates before connecting your computer to the internet.
+    * Disabling this feature may prevent legitimate software and drivers from being loaded when plugging in other types of devices such as printers and audio playback devices.
+    ```
+    Windows Registry Editor Version 5.00
+
+    [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Device Installer]
+    "DisableCoInstallers"=dword:00000001
+    ```
+18. Restart your computer to ensure all settings are applied.
+19. Reconnect your network ethernet cable, continue onto the next process.
