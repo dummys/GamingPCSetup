@@ -1738,6 +1738,9 @@ Configuration GamingMinimal {
             ValueName = ''
             Force = $true
         }
+        # https://www.youtube.com/watch?v=-z7iBgm1hec
+        # https://learn.microsoft.com/en-us/windows/iot/iot-enterprise/soft-real-time/soft-real-time-device#what-is-the-windowsiot-csp
+        # Disable ThreadDPC
         Registry DisableThreadDPC {
             Ensure = "Present"
             Key = "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\kernel"
@@ -1745,8 +1748,6 @@ Configuration GamingMinimal {
             ValueData   = "0"
             ValueType = "Dword"
         }
-        # https://www.youtube.com/watch?v=-z7iBgm1hec
-        # Disable ThreadDPC
 
         ################################
         # DISABLE SYSTEM SCHEDULED TASKS
