@@ -1,6 +1,7 @@
 # first install latest DSC 3.0
 # run powershell as admin and use:
-# winget install --id Microsoft.DSC.Preview --source winget
+# winget search DesiredStateConfiguration
+# then choose the preview with: winget install --id (ID FOUND WITH PREVIOUS COMMAND) --source msstore
 # first you get test if the configuration match with: dsc config test --file .\gaming-dsc.yaml
 # Then to apply the configuration use: dsc config set --file .\gaming-dsc.yaml
 # PS: Im still working on adding service and scheduled task to the newer DSC script
