@@ -5,6 +5,8 @@
 # first you get test if the configuration match with: dsc config test --file .\gaming-dsc.yaml
 # Then to apply the configuration use: dsc config set --file .\gaming-dsc.yaml
 # PS: Im still working on adding service and scheduled task to the newer DSC script
+# need also to install old computerManagementDsc module 
+# Find-Module -Name ComputerManagementDsc -Repository PSGallery | Install-Module
 
 
 # yaml-language-server: $schema=https://aka.ms/dsc/schemas/v3/bundled/config/document.vscode.json
@@ -1365,7 +1367,12 @@ resources:
       valueName: ThreadDpcEnable
       valueData:
         DWord: 0
-  # Disable a bunch of scheduled tasks
+  
+  ################################
+  # DISABLE SYSTEM SCHEDULED TASKS
+  ################################
+
+  
   # need service winRM started for now
   - name: Disable Micrsoft Compatibility Appraiser
     type: Microsoft.Windows/WindowsPowerShell
@@ -1375,6 +1382,17 @@ resources:
           type: ComputerManagementDsc/ScheduledTask
           properties:
             taskName: Microsoft Compatibility Appraiser
+            taskPath: '\Microsoft\Windows\Application Experience'
+            enable: false
+
+  - name: Disable Micrsoft Compatibility Appraiser Exp
+    type: Microsoft.Windows/WindowsPowerShell
+    properties:
+      resources:
+        - name: DisableMicrosoftCompatibilityAppraiserExp
+          type: ComputerManagementDsc/ScheduledTask
+          properties:
+            taskName: Microsoft Compatibility Appraiser Exp
             taskPath: '\Microsoft\Windows\Application Experience'
             enable: false
 
