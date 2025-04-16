@@ -1657,11 +1657,13 @@ Configuration GamingMinimal {
             ValueData   = "0"
             ValueType = "Dword"
         }
+        # source: https://www.youtube.com/watch?v=bqDMG1ZS-Yw
+        # 0x24 / 36 give the better result
         Registry Win32PrioritySeparation {
             Ensure = "Present"
             Key = "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\PriorityControl"
             ValueName   = "Win32PrioritySeparation"
-            ValueData   = "38"
+            ValueData   = "36"
             ValueType = "Dword"
         }
         Registry EnableActivityFeed {
