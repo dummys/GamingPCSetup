@@ -1660,7 +1660,8 @@ Configuration GamingMinimal {
             ValueType = "Dword"
         }
         # source: https://www.youtube.com/watch?v=bqDMG1ZS-Yw
-        # 0x24 / 36 give the better result
+        # source: https://www.xbitlabs.com/win32priorityseparation-performance/
+        # 0x24 / 36 give the better result for low latency (not fps)
         Registry Win32PrioritySeparation {
             Ensure = "Present"
             Key = "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\PriorityControl"
