@@ -401,6 +401,7 @@ Configuration GamingMinimal {
             ValueData   = "0"
             ValueType = "Dword"
         }
+        # Disable Fullscreen Optimizations for Current User / 0 - Enabled / 2 - Disabled
         Registry DisableGameBarFSEBehavior {
             Ensure = "Present"
             Key = "HKEY_USERS\${mysid}\System\GameConfigStore"
@@ -415,6 +416,7 @@ Configuration GamingMinimal {
             ValueData   = "1"
             ValueType = "Dword"
         }
+        # Honor User adjusted FSE value
         Registry DisableGameBarFSEBehaviorMode {
             Ensure = "Present"
             Key = "HKEY_USERS\${mysid}\System\GameConfigStore"
