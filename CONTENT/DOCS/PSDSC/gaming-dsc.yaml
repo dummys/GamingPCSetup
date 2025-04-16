@@ -653,8 +653,6 @@ resources:
       valueData:
         DWord: 0
 
-  # todo
-
   - name: DisableShareAcrossDevices1
     type: Microsoft.Windows/Registry
     properties:
@@ -1212,15 +1210,15 @@ resources:
       valueName: ShowHibernateOption
       valueData:
         DWord: 0
-
-  - name: EnableHighPerfPowerScheme
-    type: Microsoft.Windows/Registry
-    properties:
-      _exist: true
-      keyPath: HKLM\System\CurrentControlSet\Control\Power\User\PowerSchemes
-      valueName: ActivePowerScheme
-      valueData:
-        String: 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c
+  # This key is now protected under windows 11, it is not applicable anymore
+  # - name: EnableHighPerfPowerScheme
+  #   type: Microsoft.Windows/Registry
+  #   properties:
+  #     _exist: true
+  #     keyPath: HKLM\System\CurrentControlSet\Control\Power\User\PowerSchemes
+  #     valueName: ActivePowerScheme
+  #     valueData:
+  #       String: 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c
 
   - name: DisableUSBSelectiveSuspend
     type: Microsoft.Windows/Registry
@@ -1366,3 +1364,93 @@ resources:
       valueName: ThreadDpcEnable
       valueData:
         DWord: 0
+  # Disable a bunch of scheduled tasks
+  # need service winRM started for now
+  - name: Use Windows powershell to configure scheduled task
+    type: Microsoft.Windows/WindowsPowerShell
+    properties:
+      resources:
+        - name: DisableMicrosoftCompatibilityAppraiser
+          type: ComputerManagementDsc/ScheduledTask
+          properties:
+            taskName: Microsoft Compatibility Appraiser
+            taskPath: '\Microsoft\Windows\Application Experience'
+            enable: false
+
+        - name: DisableMareBackup
+          type: ComputerManagementDsc/ScheduledTask
+          properties:
+            taskName: MareBackup
+            taskPath: '\Microsoft\Windows\Application Experience'
+            enable: false
+
+        - name: DisableStartupAppTask
+          type: ComputerManagementDsc/ScheduledTask
+          properties:
+            taskName: StartupAppTask
+            taskPath: '\Microsoft\Windows\Application Experience'
+            enable: false
+
+        - name: DisablePcaPatchDbTask
+          type: ComputerManagementDsc/ScheduledTask
+          properties:
+            taskName: PcaPatchDbTask
+            taskPath: '\Microsoft\Windows\Application Experience'
+            enable: false
+
+        - name: DisableProxy
+          type: ComputerManagementDsc/ScheduledTask
+          properties:
+            taskName: Proxy
+            taskPath: '\Microsoft\Windows\Autochk'
+            enable: false
+
+        - name: DisableConsolidator
+          type: ComputerManagementDsc/ScheduledTask
+          properties:
+            taskName: Consolidator
+            taskPath: '\Microsoft\Windows\Customer Experience Improvement Program'
+            enable: false
+
+        - name: DisableUsbCeip
+          type: ComputerManagementDsc/ScheduledTask
+          properties:
+            taskName: UsbCeip
+            taskPath: '\Microsoft\Windows\Customer Experience Improvement Program'
+            enable: false
+
+        - name: DisableDiskDiagnosticDataCollector
+          type: ComputerManagementDsc/ScheduledTask
+          properties:
+            taskName: Microsoft-Windows-DiskDiagnosticDataCollector
+            taskPath: '\Microsoft\Windows\DiskDiagnostic'
+            enable: false
+
+        - name: DisableDmClient
+          type: ComputerManagementDsc/ScheduledTask
+          properties:
+            taskName: DmClient
+            taskPath: '\Microsoft\Windows\Feedback\Siuf'
+            enable: false
+
+        - name: DisableDmClientOnScenarioDownload
+          type: ComputerManagementDsc/ScheduledTask
+          properties:
+            taskName: DmClientOnScenarioDownload
+            taskPath: '\Microsoft\Windows\Feedback\Siuf'
+            enable: false
+
+        - name: DisableQueueReporting
+          type: ComputerManagementDsc/ScheduledTask
+          properties:
+            taskName: QueueReporting
+            taskPath: '\Microsoft\Windows\Windows Error Reporting'
+            enable: false
+
+        - name: DisableMapsUpdateTask
+          type: ComputerManagementDsc/ScheduledTask
+          properties:
+            taskName: MapsUpdateTask
+            taskPath: '\Microsoft\Windows\Maps'
+            enable: false
+
