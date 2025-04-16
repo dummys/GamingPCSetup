@@ -1,0 +1,1367 @@
+# first install latest DSC 3.0
+# run powershell as admin and use:
+# winget install --id Microsoft.DSC.Preview --source winget
+# first you get test if the configuration match with: dsc config test --file .\gaming-dsc.yaml
+# Then to apply the configuration use: dsc config set --file .\gaming-dsc.yaml
+# PS: Im still working on adding service and scheduled task to the newer DSC script
+
+
+# yaml-language-server: $schema=https://aka.ms/dsc/schemas/v3/bundled/config/document.vscode.json
+$schema: https://aka.ms/dsc/schemas/v3/bundled/config/document.json
+resources:
+  
+  ###########################
+  # USER SETTINGS/PREFERENCES
+  ###########################
+  # Privacy Settings
+  # https://privacyamp.com/knowledge-base/windows-10-privacy-settings/
+  - name: ShowAllIconTaskbar
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer
+      valueName: EnableAutoTray
+      valueData:
+        DWord: 0
+  - name: DisableWidgets
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKLM\SOFTWARE\Policies\Microsoft\Dsh
+      valueName: AllowNewsAndInterests
+      valueData:
+        DWord: 0
+  - name: VisualEffects
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects
+      valueName: VisualFXSetting
+      valueData:
+        DWord: 2
+  #Disable Enhanced Pointer Precision set 6/11
+  - name: MouseSpeed
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\Control Panel\Mouse
+      valueName: MouseSpeed
+      valueData:
+        String: "0"
+  - name: MouseThreshold1
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\Control Panel\Mouse
+      valueName: MouseThreshold1
+      valueData:
+        String: "0"
+  - name: MouseThreshold2
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\Control Panel\Mouse
+      valueName: MouseThreshold2
+      valueData:
+        String: "0"
+  - name: MouseSensitivity
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\Control Panel\Mouse
+      valueName: MouseSensitivity
+      valueData:
+        String: "10"
+  - name: DisableScrollInactiveWindow
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\Control Panel\Desktop
+      valueName: MouseWheelRouting
+      valueData:
+        DWord: 0
+  # Disable Touch Feedback
+  - name: DisableMouseTouchFeedback1
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\Control Panel\Cursors
+      valueName: ContactVisualization
+      valueData:
+        DWord: 0
+
+  - name: DisableMouseTouchFeedback2
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\Control Panel\Cursors
+      valueName: GestureVisualization
+      valueData:
+        DWord: 0
+  - name: DisableOnlineSpeechPrivacyandRecognition
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\Software\Microsoft\Speech_OneCore\Settings\OnlineSpeechPrivacy
+      valueName: HasAccepted
+      valueData:
+        DWord: 0
+  - name: DisableCortanaTaskbar
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Search
+      valueName: CortanaEnabled
+      valueData:
+        DWord: 0
+
+  - name: DisableCortanaBingWebSearch
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Search
+      valueName: BingSearchEnabled
+      valueData:
+        DWord: 0
+
+  - name: DoNotGiveCortanaConsent
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Search
+      valueName: CortanaConsent
+      valueData:
+        DWord: 0
+
+  - name: DisableAdvertisingInfo
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\Software\Microsoft\Windows\CurrentVersion\AdvertisingInfo
+      valueName: Enabled
+      valueData:
+        DWord: 0
+
+  - name: DisableInfoByLanguageList
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\Control Panel\International\User Profile
+      valueName: HttpAcceptLanguageOptOut
+      valueData:
+        DWord: 1
+
+  - name: DisableAppLaunchTracking
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced
+      valueName: Start_TrackProgs
+      valueData:
+        DWord: 0
+
+  - name: DisableContentDelivery
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager
+      valueName: ContentDeliveryAllowed
+      valueData:
+        DWord: 0
+  # fixed
+  - name: DisableOEMPreInstalledApps
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager
+      valueName: OemPreInstalledAppsEnabled
+      valueData:
+        DWord: 0
+
+  - name: DisablePreInstalledApps
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager
+      valueName: PreInstalledAppsEnabled
+      valueData:
+        DWord: 0
+
+  - name: DisablePreInstalledAppsEverEnabled
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager
+      valueName: PreInstalledAppsEverEnabled
+      valueData:
+        DWord: 0
+
+  - name: DisablePSilentInstalledAppsEnabled
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager
+      valueName: SilentInstalledAppsEnabled
+      valueData:
+        DWord: 0
+
+  - name: DisableSuggestedContent1
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager
+      valueName: SubscribedContent-338393Enabled
+      valueData:
+        DWord: 0
+
+  - name: DisableSuggestedContent2
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager
+      valueName: SubscribedContent-338394Enabled
+      valueData:
+        DWord: 0
+
+  - name: DisableSuggestedContent3
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager
+      valueName: SubscribedContent-338396Enabled
+      valueData:
+        DWord: 0
+
+  - name: DisableSystemPaneSuggestions
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager
+      valueName: SystemPaneSuggestionsEnabled
+      valueData:
+        DWord: 0
+
+  - name: DisableInkingandPersonalization1
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\Software\Microsoft\Personalization\Settings
+      valueName: AcceptedPrivacyPolicy
+      valueData:
+        DWord: 0
+
+  - name: DisableInkingandPersonalization2
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\Software\Microsoft\Windows\CurrentVersion\SettingSync\Groups\Language
+      valueName: Enabled
+      valueData:
+        DWord: 0
+
+  - name: DisableInkingandPersonalization3
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\Software\Microsoft\InputPersonalization
+      valueName: RestrictImplicitTextCollection
+      valueData:
+        DWord: 1
+
+  - name: DisableInkingandPersonalization4
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\Software\Microsoft\InputPersonalization
+      valueName: RestrictImplicitInkCollection
+      valueData:
+        DWord: 1
+
+  - name: DisableInkingandPersonalization5
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\Software\Microsoft\InputPersonalization\TrainedDataStore
+      valueName: HarvestContacts
+      valueData:
+        DWord: 0
+
+  - name: DiagnosticsBasicUser1
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack
+      valueName: ShowedToastAtLevel
+      valueData:
+        DWord: 1
+
+  - name: DisableTailoredExperiences
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\Software\Microsoft\Windows\CurrentVersion\Privacy
+      valueName: TailoredExperiencesWithDiagnosticDataEnabled
+      valueData:
+        DWord: 0
+
+  - name: DisableFeedbackFrequency
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\Software\Microsoft\Siuf\Rules
+      valueName: NumberOfSIUFInPeriod
+      valueData:
+        DWord: 0
+
+  - name: DisableAppsUsingCamera
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\webcam
+      valueName: Value
+      valueData:
+        String: "Deny"
+
+  - name: DisableAppBluetoothAccess
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\radios
+      valueName: Value
+      valueData:
+        String: "Deny"
+
+  - name: DisableCommUnpairedDevices
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\Software\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\bluetoothSync
+      valueName: Value
+      valueData:
+        String: "Deny"
+
+  - name: DisableBackgroundApps1
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\Software\Microsoft\Windows\CurrentVersion\Search
+      valueName: BackgroundAppGlobalToggle
+      valueData:
+        DWord: 0
+
+  - name: DisableBackgroundApps2
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications
+      valueName: GlobalUserDisabled
+      valueData:
+        DWord: 1
+
+  - name: ShowFileExtensions
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced
+      valueName: HideFileExt
+      valueData:
+        DWord: 0
+  - name: DisableNarrator1
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\Software\Microsoft\Windows NT\CurrentVersion\AccessibilityTemp
+      valueName: narrator
+      valueData:
+        DWord: 0
+
+  - name: DisableNarrator2
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\Software\Microsoft\Narrator\NoRoam
+      valueName: RunningState
+      valueData:
+        DWord: 0
+  - name: DisableAutoCorrect
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\Software\Microsoft\TabletTip\1.7
+      valueName: EnableAutocorrection
+      valueData:
+        DWord: 0
+
+  - name: DisableSpellChecking
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\Software\Microsoft\TabletTip\1.7
+      valueName: EnableSpellchecking
+      valueData:
+        DWord: 0
+
+  - name: DisableTypePrediction
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\Software\Microsoft\TabletTip\1.7
+      valueName: EnableTextPrediction
+      valueData:
+        DWord: 0
+
+  - name: DisableSpaceInsertPrediction
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\Software\Microsoft\TabletTip\1.7
+      valueName: EnablePredictionSpaceInsertion
+      valueData:
+        DWord: 0
+
+  - name: DisableDoubleTapSpace
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\Software\Microsoft\TabletTip\1.7
+      valueName: EnableDoubleTapSpace
+      valueData:
+        DWord: 0
+
+  - name: DisableTypingInsights1
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\Software\Microsoft\Input\Settings
+      valueName: InsightsEnabled
+      valueData:
+        DWord: 0
+
+  - name: DisableTypingInsights2
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\Software\Microsoft\Input\Settings
+      valueName: Insights
+      valueData:
+        Binary: [1,0,0,0,7,29,232,193,49,204,131,96,163,214,217,193,51,10,104,107,22,90,186,46,35,95,90,92]
+  - name: DisableSwiftKeySuggestionsLangEnglishUS
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\Software\Microsoft\TabletTip\1.7
+      valueName: EnableInkingWithTouch
+      valueData:
+        DWord: 0
+
+  - name: DisablePenandInk
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\Software\Microsoft\Windows\CurrentVersion\PenWorkspace
+      valueName: PenWorkspaceAppSuggestionsEnabled
+      valueData:
+        DWord: 0
+
+  - name: DisableAutoPlay
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers
+      valueName: DisableAutoplay
+      valueData:
+        DWord: 1
+
+  - name: DisableGameBar
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\System\GameConfigStore
+      valueName: GameDVR_Enabled
+      valueData:
+        DWord: 0
+  # Disable Fullscreen Optimizations for Current User / 0 - Enabled / 2 - Disabled
+  - name: DisableGameBarFSEBehavior
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\System\GameConfigStore
+      valueName: GameDVR_FSEBehavior
+      valueData:
+        DWord: 2
+
+  - name: DisableGameBarDXI
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\System\GameConfigStore
+      valueName: GameDVR_DXGIHonorFSEWindowsCompatible
+      valueData:
+        DWord: 1
+  # Honor User adjusted FSE value
+  - name: DisableGameBarFSEBehaviorMode
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\System\GameConfigStore
+      valueName: GameDVR_HonorUserFSEBehaviorMode
+      valueData:
+        DWord: 1
+
+  - name: DisableGameBarFeatureFlag
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\System\GameConfigStore
+      valueName: GameDVR_EFSEFeatureFlags
+      valueData:
+        DWord: 0
+
+  - name: DisableGameBarControllerShortcut
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\Software\Microsoft\GameBar
+      valueName: UseNexusForGameBarEnabled
+      valueData:
+        DWord: 0
+
+  - name: DisableGamingAudioCaptures
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\Software\Microsoft\Windows\CurrentVersion\GameDVR
+      valueName: AudioCaptureEnabled
+      valueData:
+        DWord: 0
+
+  - name: DisableGamingHistoricalCaptures
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\Software\Microsoft\Windows\CurrentVersion\GameDVR
+      valueName: HistoricalCaptureEnabled
+      valueData:
+        DWord: 0
+
+  - name: DisableGamingCursorCaptures
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\Software\Microsoft\Windows\CurrentVersion\GameDVR
+      valueName: CursorCaptureEnabled
+      valueData:
+        DWord: 0
+
+  - name: DisableGamingBroadcasting1
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\Software\Microsoft\Windows\CurrentVersion\AppBroadcast\GlobalSettings
+      valueName: AudioCaptureEnabled
+      valueData:
+        DWord: 0
+
+  - name: DisableGamingBroadcasting2
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\Software\Microsoft\Windows\CurrentVersion\AppBroadcast\GlobalSettings
+      valueName: MicrophoneCaptureEnabledByDefault
+      valueData:
+        DWord: 0
+
+  - name: DisableGamingBroadcasting3
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\Software\Microsoft\Windows\CurrentVersion\AppBroadcast\GlobalSettings
+      valueName: CursorCaptureEnabled
+      valueData:
+        DWord: 0
+
+  - name: DisableGamingBroadcasting4
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\Software\Microsoft\Windows\CurrentVersion\AppBroadcast\GlobalSettings
+      valueName: CameraCaptureEnabledByDefault
+      valueData:
+        DWord: 0
+
+  - name: DisableGamingMode
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\Software\Microsoft\GameBar
+      valueName: AutoGameModeEnabled
+      valueData:
+        DWord: 0
+  # TODO
+  # - name: DisableSigninOptionReopenApps
+  #   type: Microsoft.Windows/Registry
+  #   properties:
+  #     _exist: true
+  #     keyPath: HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\UserARSO\${mysid}
+  #     valueName: OptOut
+  #     valueData:
+  #       DWord: 1
+  # TODO
+  # - name: DisableLoginBackgroundImageonLockScreen
+  #   type: Microsoft.Windows/Registry
+  #   properties:
+  #     _exist: true
+  #     keyPath: HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\SystemProtectedUserData\${mysid}\AnyoneRead\LockScreen
+  #     valueName: HideLogonBackgroundImage
+  #     valueData:
+  #       DWord: 1
+
+  - name: DisableOneDriveStartUp
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\Run
+      valueName: OneDrive
+      valueData:
+        Binary: [1, 0, 0, 0, 4, 7, 118, 64, 55, 143, 212, 1]
+
+  - name: DisablePersonalizationTransparencyEffect
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize
+      valueName: EnableTransparency
+      valueData:
+        DWord: 0
+
+  - name: DisableShowPeopleOnTaskbar
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\People
+      valueName: PeopleBand
+      valueData:
+        DWord: 0
+
+  - name: DisableAutoDetectProxy
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings
+      valueName: ProxyEnable
+      valueData:
+        DWord: 0
+
+  # todo
+
+  - name: DisableShareAcrossDevices1
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\Software\Microsoft\Windows\CurrentVersion\CDP
+      valueName: RomeSdkChannelUserAuthzPolicy
+      valueData:
+        DWord: 0
+
+  - name: DisableShareAcrossDevices2
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\Software\Microsoft\Windows\CurrentVersion\CDP
+      valueName: CdpSessionUserAuthzPolicy
+      valueData:
+        DWord: 0
+
+  - name: DisableLockScreenNotifications1
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\Software\Microsoft\Windows\CurrentVersion\PushNotifications
+      valueName: LockScreenToastEnabled
+      valueData:
+        DWord: 0
+
+  - name: DisableLockScreenNotifications2
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings
+      valueName: NOC_GLOBAL_SETTING_ALLOW_TOASTS_ABOVE_LOCK
+      valueData:
+        DWord: 0
+
+  - name: DisableLockScreenNotifications3
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings
+      valueName: NOC_GLOBAL_SETTING_ALLOW_CRITICAL_TOASTS_ABOVE_LOCK
+      valueData:
+        DWord: 0
+
+  - name: DisableToastNotifications
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\Software\Microsoft\Windows\CurrentVersion\PushNotifications
+      valueName: ToastEnabled
+      valueData:
+        DWord: 0
+
+  - name: EnforceDesktopModeNotTablet1
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\Software\Microsoft\Windows\CurrentVersion\ImmersiveShell
+      valueName: SignInMode
+      valueData:
+        DWord: 1
+
+  - name: EnforceDesktopModeNotTablet2
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\Software\Microsoft\Windows\CurrentVersion\ImmersiveShell
+      valueName: ConvertibleSlateModePromptPreference
+      valueData:
+        DWord: 0
+
+  - name: DisableMultitaskingSnap
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\Control Panel\Desktop
+      valueName: WindowArrangementActive
+      valueData:
+        String: "0"
+
+  - name: DisableSiuf
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\SOFTWARE\Microsoft\Siuf\Rules
+      valueName: NumberOfSIUFInPeriod
+      valueData:
+        DWord: 0
+  # add more info when copying files
+  - name: EnableEnthusiastMode
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\OperationStatusManager
+      valueName: EnthusiastMode
+      valueData:
+        DWord: 1
+  # Disable task view button in the status bar
+  - name: DisableShowTaskViewButton
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced
+      valueName: ShowTaskViewButton
+      valueData:
+        DWord: 0
+  # Disable people bar in the status bar
+  - name: DisablePeopleBand
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\People
+      valueName: PeopleBand
+      valueData:
+        DWord: 0
+  # Disable the news feed on status bar
+  - name: DisableNewsFeed
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\SOFTWARE\Policies\Microsoft\Windows\Windows Feeds
+      valueName: EnableFeeds
+      valueData:
+        DWord: 0
+  - name: DisableShellFeedsTaskbarViewMode
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Feeds
+      valueName: ShellFeedsTaskbarViewMode
+      valueData:
+        DWord: 0
+
+  - name: DisableMeetNow
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer
+      valueName: HideSCAMeetNow
+      valueData:
+        DWord: 1
+  # put back the old right click menu on windows 11
+  - name: EnableOldClickMenu
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKCU\SOFTWARE\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32
+
+  ##########################
+  # SYSTEM/MACHINE SETTINGS
+  ###########################
+  # Disable Services
+  # https://docs.microsoft.com/en-us/windows-server/security/windows-services/security-guidelines-for-disabling-system-services-in-windows-server
+  # Privacy Settings
+  # https://privacyamp.com/knowledge-base/windows-10-privacy-settings/
+  - name: DisableMulticastDNS
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKLM\SOFTWARE\Policies\Microsoft\Windows NT\DNSClient
+      valueName: EnableMulticast
+      valueData:
+        DWord: 0
+
+  - name: DisableLockScreenApp
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKLM\SOFTWARE\Policies\Microsoft\Windows\Personalization
+      valueName: NoLockScreen
+      valueData:
+        DWord: 1
+
+  - name: DisablePowerThrottleFeature
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKLM\SYSTEM\CurrentControlSet\Control\Power\PowerThrottling
+      valueName: PowerThrottlingOff
+      valueData:
+        DWord: 1
+
+  - name: DisableAutomaticDeviceMetaDataDownload
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Device Metadata
+      valueName: PreventDeviceMetadataFromNetwork
+      valueData:
+        DWord: 1
+
+  - name: DisableAutomaticUpdates
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU
+      valueName: NoAutoUpdate
+      valueData:
+        DWord: 1
+
+  - name: DisableStoreAutomaticUpdates
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKLM\SOFTWARE\Policies\Microsoft\WindowsStore
+      valueName: AutoDownload
+      valueData:
+        DWord: 2
+
+  - name: DisableCortanaSearch
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search
+      valueName: AllowCortana
+      valueData:
+        DWord: 0
+
+  - name: DisableCortanaWebSearch
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search
+      valueName: DisableWebSearch
+      valueData:
+        DWord: 1
+
+  - name: DiagnosticsBasic1
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\DataCollection
+      valueName: AllowTelemetry
+      valueData:
+        DWord: 0
+
+  - name: DisableFeebackNotification
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKLM\SOFTWARE\Policies\Microsoft\Windows\DataCollection
+      valueName: DoNotShowFeedbackNotifications
+      valueData:
+        DWord: 1
+  - name: DiagnosticsBasic2
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\DataCollection
+      valueName: MaxTelemetryAllowed
+      valueData:
+        DWord: 1
+
+  - name: DiagnosticsBasic3
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack
+      valueName: UploadPermissionReceived
+      valueData:
+        DWord: 1
+
+  - name: DiagnosticsBasic4
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack
+      valueName: DiagTrackAuthorization
+      valueData:
+        DWord: 775
+
+  - name: DiagnosticsBasic5
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack
+      valueName: DiagTrackStatus
+      valueData:
+        DWord: 2
+
+  - name: DiagnosticsBasic6
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack\TraceManager
+      valueName: miniTraceSlotEnabled
+      valueData:
+        DWord: 0
+
+  - name: DiagnosticsBasic7
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack\TraceManager
+      valueName: miniTraceSlotContentPermitted
+      valueData:
+        DWord: 1
+
+  - name: DisableActivityPublishing
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKLM\SOFTWARE\Policies\Microsoft\Windows\System
+      valueName: PublishUserActivities
+      valueData:
+        DWord: 0
+
+  - name: DisableActivityUpload
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKLM\SOFTWARE\Policies\Microsoft\Windows\System
+      valueName: UploadUserActivities
+      valueData:
+        DWord: 0
+
+  - name: DisableAppNotificationsAccess
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\userNotificationListener
+      valueName: Value
+      valueData:
+        String: Deny
+
+  - name: DisableAppAccountInfoAccess
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\userAccountInformation
+      valueName: Value
+      valueData:
+        String: Deny
+
+  - name: DisableAppLocationAccess
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\location
+      valueName: Value
+      valueData:
+        String: Deny
+
+  - name: DisableAppContactInfoAccess
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\contacts
+      valueName: Value
+      valueData:
+        String: Deny
+
+  - name: DisableAppPhoneCall
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\phoneCall
+      valueName: Value
+      valueData:
+        String: Deny
+
+  - name: DisableAppCalendarAccess
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\appointments
+      valueName: Value
+      valueData:
+        String: Deny
+
+  - name: DisableAppCallHist
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\phoneCallHistory
+      valueName: Value
+      valueData:
+        String: Deny
+
+  - name: DisableAppEmailsAccess
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\email
+      valueName: Value
+      valueData:
+        String: Deny
+
+  - name: DisableAppTaskAccess
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\userDataTasks
+      valueName: Value
+      valueData:
+        String: Deny
+
+  - name: DisableAppMessagingAccess
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\chat
+      valueName: Value
+      valueData:
+        String: Deny
+
+  - name: DisableAppRadioAccess
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\radios
+      valueName: Value
+      valueData:
+        String: Deny
+
+  - name: DisableAppDiagAccess
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\appDiagnostics
+      valueName: Value
+      valueData:
+        String: Deny
+  - name: DisableAppDocumentAccess
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\documentsLibrary
+      valueName: Value
+      valueData:
+        String: Deny
+
+  - name: DisableAppPicturesAccess
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\picturesLibrary
+      valueName: Value
+      valueData:
+        String: Deny
+
+  - name: DisableAppVideoAccess
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\videosLibrary
+      valueName: Value
+      valueData:
+        String: Deny
+
+  - name: DisableAppFileSystemAccess
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\broadFileSystemAccess
+      valueName: Value
+      valueData:
+        String: Deny
+
+  - name: DisableDeliveryOptDownloadOtherPCs1
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKEY_USERS\S-1-5-20\Software\Microsoft\Windows\CurrentVersion\DeliveryOptimization\Settings
+      valueName: DownloadMode
+      valueData:
+        DWord: 0
+
+  - name: DisableDeliveryOptDownloadOtherPCs2
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKEY_USERS\S-1-5-20\Software\Microsoft\Windows\CurrentVersion\DeliveryOptimization\Settings
+      valueName: DownloadModeProvider
+      valueData:
+        DWord: 8
+
+  - name: DisableFindMyDevice
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKLM\SOFTWARE\Microsoft\Settings\FindMyDevice
+      valueName: LocationSyncEnabled
+      valueData:
+        DWord: 0
+
+  - name: PreferIPv4overIPv6
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKLM\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters
+      valueName: DisabledComponents
+      valueData:
+        DWord: 32
+
+  - name: DisableCloudSearch
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search
+      valueName: AllowCloudSearch
+      valueData:
+        DWord: 0
+
+  - name: DisableWindowsConsumerFeatures
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKLM\SOFTWARE\Policies\Microsoft\Windows\CloudContent
+      valueName: DisableWindowsConsumerFeatures
+      valueData:
+        DWord: 1
+
+  - name: DisableTailoredExperiencesWithDiagnosticData
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKLM\SOFTWARE\Policies\Microsoft\Windows\CloudContent
+      valueName: DisableTailoredExperiencesWithDiagnosticData
+      valueData:
+        DWord: 1
+  - name: DisableFastBoot
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKLM\System\CurrentControlSet\Control\Session Manager\Power
+      valueName: HiberbootEnabled
+      valueData:
+        DWord: 0
+
+  - name: DisableShowSleep
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FlyoutMenuSettings
+      valueName: ShowSleepOption
+      valueData:
+        DWord: 0
+
+  - name: DisableHibernation
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKLM\System\CurrentControlSet\Control\Session Manager\Power
+      valueName: HibernateEnabled
+      valueData:
+        DWord: 0
+
+  - name: DisableShowHibernate
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FlyoutMenuSettings
+      valueName: ShowHibernateOption
+      valueData:
+        DWord: 0
+
+  - name: EnableHighPerfPowerScheme
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKLM\System\CurrentControlSet\Control\Power\User\PowerSchemes
+      valueName: ActivePowerScheme
+      valueData:
+        String: 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c
+
+  - name: DisableUSBSelectiveSuspend
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKLM\System\CurrentControlSet\Control\Power\User\PowerSchemes\8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c\2a737441-1930-4402-8d77-b2bebba308a3\48e6b7a6-50f5-4782-a5d4-53bb8f07e226
+      valueName: ACSettingIndex
+      valueData:
+        DWord: 0
+
+  - name: DisableDefenderAutomaticSampleSubmit
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKLM\SOFTWARE\Microsoft\Windows Defender\Spynet
+      valueName: SubmitSamplesConsent
+      valueData:
+        DWord: 0
+
+  - name: DisableGameDVR
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKLM\SOFTWARE\Policies\Microsoft\Windows\GameDVR
+      valueName: AllowgameDVR
+      valueData:
+        DWord: 0
+  # source: https://www.youtube.com/watch?v=bqDMG1ZS-Yw
+  # source: https://www.xbitlabs.com/win32priorityseparation-performance/
+  # 0x24 / 36 give the better result for low latency (not fps)
+  - name: Win32PrioritySeparation
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKLM\SYSTEM\CurrentControlSet\Control\PriorityControl
+      valueName: Win32PrioritySeparation
+      valueData:
+        DWord: 38
+
+  - name: EnableActivityFeed
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKLM\SOFTWARE\Policies\Microsoft\Windows\System
+      valueName: EnableActivityFeed
+      valueData:
+        DWord: 0
+
+  - name: SensorPermissionState
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Sensor\Overrides\{BFA794E4-F964-4FDB-90F6-51056BFE4B44}
+      valueName: SensorPermissionState
+      valueData:
+        DWord: 0
+
+  - name: DisableAdvertisingInfoByGP
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKLM\SOFTWARE\Policies\Microsoft\Windows\AdvertisingInfo
+      valueName: DisabledByGroupPolicy
+      valueData:
+        DWord: 1
+  - name: DisableErrorReporting
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKLM\SOFTWARE\Microsoft\Windows\Windows Error Reporting
+      valueName: Disabled
+      valueData:
+        DWord: 1
+
+  - name: DisableRemoteAssistance
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKLM\SYSTEM\CurrentControlSet\Control\Remote Assistance
+      valueName: fAllowToGetHelp
+      valueData:
+        DWord: 0
+  # Enable long path 
+  - name: EnableLongPath
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKLM\SYSTEM\CurrentControlSet\Control\FileSystem
+      valueName: LongPathsEnabled
+      valueData:
+        DWord: 1
+  # Wifi Sense is a spying service that phones home all nearby scanned wifi networks and your current geo location
+  - name: DisableWifiHotSpotReporting
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKLM\SOFTWARE\Microsoft\PolicyManager\default\Wifi\AllowWiFiHotSpotReporting
+      valueName: Value
+      valueData:
+        DWord: 0
+
+  - name: DisableWifiHotSpotSense
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKLM\SOFTWARE\Microsoft\PolicyManager\default\Wifi\AllowAutoConnectToWiFiSenseHotspots
+      valueName: Value
+      valueData:
+        DWord: 0
+  # Disable D3 support on SATA/NVMEs while using Modern Standby
+  - name: DisableD3Support
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKLM\SYSTEM\CurrentControlSet\Control\Storage
+      valueName: StorageD3InModernStandby
+      valueData:
+        DWord: 0
+  # Disable IdlePowerMode for stornvme.sys (storage devices) - the device will never enter a low-power state
+  - name: DisableIdlePowerMode
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKLM\SYSTEM\CurrentControlSet\Services\stornvme\Parameters\Device
+      valueName: IdlePowerMode
+      valueData:
+        DWord: 0
+  # delete the temp file automatically
+  - name: StoragePolicy
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: false
+      keyPath: HKCU\Software\Microsoft\Windows\CurrentVersion\StorageSense\Parameters\StoragePolicy
+
+  # https://www.youtube.com/watch?v=-z7iBgm1hec
+  # https://learn.microsoft.com/en-us/windows/iot/iot-enterprise/soft-real-time/soft-real-time-device#what-is-the-windowsiot-csp
+  # Disable ThreadDPC
+  - name: DisableThreadDPC
+    type: Microsoft.Windows/Registry
+    properties:
+      _exist: true
+      keyPath: HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\kernel
+      valueName: ThreadDpcEnable
+      valueData:
+        DWord: 0
