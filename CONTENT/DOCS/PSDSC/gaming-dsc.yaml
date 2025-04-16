@@ -1367,7 +1367,7 @@ resources:
         DWord: 0
   # Disable a bunch of scheduled tasks
   # need service winRM started for now
-  - name: Use Windows powershell to configure scheduled task
+  - name: Disable Micrsoft Compatibility Appraiser
     type: Microsoft.Windows/WindowsPowerShell
     properties:
       resources:
@@ -1378,6 +1378,10 @@ resources:
             taskPath: '\Microsoft\Windows\Application Experience'
             enable: false
 
+  - name: Disable MareBackup
+    type: Microsoft.Windows/WindowsPowerShell
+    properties:
+      resources:
         - name: DisableMareBackup
           type: ComputerManagementDsc/ScheduledTask
           properties:
@@ -1385,6 +1389,10 @@ resources:
             taskPath: '\Microsoft\Windows\Application Experience'
             enable: false
 
+  - name: Disable StartupAppTask
+    type: Microsoft.Windows/WindowsPowerShell
+    properties:
+      resources:
         - name: DisableStartupAppTask
           type: ComputerManagementDsc/ScheduledTask
           properties:
@@ -1392,6 +1400,10 @@ resources:
             taskPath: '\Microsoft\Windows\Application Experience'
             enable: false
 
+  - name: Disable PCA task
+    type: Microsoft.Windows/WindowsPowerShell
+    properties:
+      resources:
         - name: DisablePcaPatchDbTask
           type: ComputerManagementDsc/ScheduledTask
           properties:
@@ -1399,6 +1411,10 @@ resources:
             taskPath: '\Microsoft\Windows\Application Experience'
             enable: false
 
+  - name: Disable ProxyTask 
+    type: Microsoft.Windows/WindowsPowerShell
+    properties:
+      resources:
         - name: DisableProxy
           type: ComputerManagementDsc/ScheduledTask
           properties:
@@ -1406,6 +1422,10 @@ resources:
             taskPath: '\Microsoft\Windows\Autochk'
             enable: false
 
+  - name: Disable consolidator
+    type: Microsoft.Windows/WindowsPowerShell
+    properties:
+      resources:
         - name: DisableConsolidator
           type: ComputerManagementDsc/ScheduledTask
           properties:
@@ -1413,6 +1433,10 @@ resources:
             taskPath: '\Microsoft\Windows\Customer Experience Improvement Program'
             enable: false
 
+  - name: Disable USBCEIP
+    type: Microsoft.Windows/WindowsPowerShell
+    properties:
+      resources:
         - name: DisableUsbCeip
           type: ComputerManagementDsc/ScheduledTask
           properties:
@@ -1420,6 +1444,10 @@ resources:
             taskPath: '\Microsoft\Windows\Customer Experience Improvement Program'
             enable: false
 
+  - name: Disable Disk Diagnostic Collector
+    type: Microsoft.Windows/WindowsPowerShell
+    properties:
+      resources:
         - name: DisableDiskDiagnosticDataCollector
           type: ComputerManagementDsc/ScheduledTask
           properties:
@@ -1427,6 +1455,10 @@ resources:
             taskPath: '\Microsoft\Windows\DiskDiagnostic'
             enable: false
 
+  - name: Disable DM Client
+    type: Microsoft.Windows/WindowsPowerShell
+    properties:
+      resources:
         - name: DisableDmClient
           type: ComputerManagementDsc/ScheduledTask
           properties:
@@ -1434,6 +1466,10 @@ resources:
             taskPath: '\Microsoft\Windows\Feedback\Siuf'
             enable: false
 
+  - name: Disable Scenario download
+    type: Microsoft.Windows/WindowsPowerShell
+    properties:
+      resources:
         - name: DisableDmClientOnScenarioDownload
           type: ComputerManagementDsc/ScheduledTask
           properties:
@@ -1441,6 +1477,10 @@ resources:
             taskPath: '\Microsoft\Windows\Feedback\Siuf'
             enable: false
 
+  - name: Disable Queue Reporting
+    type: Microsoft.Windows/WindowsPowerShell
+    properties:
+      resources:
         - name: DisableQueueReporting
           type: ComputerManagementDsc/ScheduledTask
           properties:
@@ -1448,6 +1488,10 @@ resources:
             taskPath: '\Microsoft\Windows\Windows Error Reporting'
             enable: false
 
+  - name: Disable Maps Update
+    type: Microsoft.Windows/WindowsPowerShell
+    properties:
+      resources:
         - name: DisableMapsUpdateTask
           type: ComputerManagementDsc/ScheduledTask
           properties:
