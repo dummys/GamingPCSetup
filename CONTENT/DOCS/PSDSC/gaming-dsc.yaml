@@ -1229,14 +1229,15 @@ resources:
   #     valueData:
   #       DWord: 0
 
-  - name: DisableDefenderAutomaticSampleSubmit
-    type: Microsoft.Windows/Registry
-    properties:
-      _exist: true
-      keyPath: HKLM\SOFTWARE\Microsoft\Windows Defender\Spynet
-      valueName: SubmitSamplesConsent
-      valueData:
-        DWord: 0
+  # not possible anymore on windows 11
+  # - name: DisableDefenderAutomaticSampleSubmit
+  #   type: Microsoft.Windows/Registry
+  #   properties:
+  #     _exist: true
+  #     keyPath: HKLM\SOFTWARE\Microsoft\Windows Defender\Spynet
+  #     valueName: SubmitSamplesConsent
+  #     valueData:
+  #       DWord: 0
 
   - name: DisableGameDVR
     type: Microsoft.Windows/Registry
