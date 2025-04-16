@@ -401,6 +401,7 @@ Configuration GamingMinimal {
             ValueData   = "0"
             ValueType = "Dword"
         }
+        # Disable Fullscreen Optimizations for Current User / 0 - Enabled / 2 - Disabled
         Registry DisableGameBarFSEBehavior {
             Ensure = "Present"
             Key = "HKEY_USERS\${mysid}\System\GameConfigStore"
@@ -415,6 +416,7 @@ Configuration GamingMinimal {
             ValueData   = "1"
             ValueType = "Dword"
         }
+        # Honor User adjusted FSE value
         Registry DisableGameBarFSEBehaviorMode {
             Ensure = "Present"
             Key = "HKEY_USERS\${mysid}\System\GameConfigStore"
@@ -1657,11 +1659,14 @@ Configuration GamingMinimal {
             ValueData   = "0"
             ValueType = "Dword"
         }
+        # source: https://www.youtube.com/watch?v=bqDMG1ZS-Yw
+        # source: https://www.xbitlabs.com/win32priorityseparation-performance/
+        # 0x24 / 36 give the better result for low latency (not fps)
         Registry Win32PrioritySeparation {
             Ensure = "Present"
             Key = "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\PriorityControl"
             ValueName   = "Win32PrioritySeparation"
-            ValueData   = "38"
+            ValueData   = "36"
             ValueType = "Dword"
         }
         Registry EnableActivityFeed {
