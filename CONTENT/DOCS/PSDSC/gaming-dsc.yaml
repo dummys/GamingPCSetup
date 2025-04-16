@@ -7,6 +7,8 @@
 # PS: Im still working on adding service and scheduled task to the newer DSC script
 # need also to install old computerManagementDsc module 
 # Find-Module -Name ComputerManagementDsc -Repository PSGallery | Install-Module
+# Then we also need the latest version of module PSDesiredStateConfiguration and we need to force it bump to version 2.0
+# install-module -force PsDesiredStateConfiguration
 
 
 # yaml-language-server: $schema=https://aka.ms/dsc/schemas/v3/bundled/config/document.vscode.json
@@ -814,6 +816,163 @@ resources:
   # https://docs.microsoft.com/en-us/windows-server/security/windows-services/security-guidelines-for-disabling-system-services-in-windows-server
   # Privacy Settings
   # https://privacyamp.com/knowledge-base/windows-10-privacy-settings/
+  # source: https://learn.microsoft.com/en-us/windows/iot/iot-enterprise/optimize/services
+
+  - name: Use class PowerShell resources
+    type: Microsoft.Windows/WindowsPowerShell
+    properties:
+      resources:
+        - name: Disable AppIDSvc
+          type: PsDesiredStateConfiguration/Service
+          properties:
+            name: AppIDSvc
+            state: stopped
+            startupType: manual
+        - name: Disable camsvc
+          type: PsDesiredStateConfiguration/Service
+          properties:
+            name: camsvc
+            state: stopped
+            startupType: manual
+        - name: Disable CDPSvc
+          type: PsDesiredStateConfiguration/Service
+          properties:
+            name: CDPSvc
+            state: stopped
+            startupType: manual
+        - name: Disable COMSysApp
+          type: PsDesiredStateConfiguration/Service
+          properties:
+            name: COMSysApp
+            state: stopped
+            startupType: manual
+        - name: Disable DeviceInstall
+          type: PsDesiredStateConfiguration/Service
+          properties:
+            name: DeviceInstall
+            state: stopped
+            startupType: manual
+        - name: Disable DiagTrack
+          type: PsDesiredStateConfiguration/Service
+          properties:
+            name: DiagTrack
+            state: stopped
+            startupType: disabled
+        - name: Disable DisplayEnhancementService
+          type: PsDesiredStateConfiguration/Service
+          properties:
+            name: DisplayEnhancementService
+            state: stopped
+            startupType: manual
+        - name: Disable DPS
+          type: PsDesiredStateConfiguration/Service
+          properties:
+            name: DPS
+            state: stopped
+            startupType: disabled
+        - name: Disable InstallService
+          type: PsDesiredStateConfiguration/Service
+          properties:
+            name: InstallService
+            state: stopped
+            startupType: manual
+        - name: Disable InventorySvc
+          type: PsDesiredStateConfiguration/Service
+          properties:
+            name: InventorySvc
+            state: stopped
+            startupType: manual
+        - name: Disable lfsvc
+          type: PsDesiredStateConfiguration/Service
+          properties:
+            name: lfsvc
+            state: stopped
+            startupType: disabled
+        - name: Disable LicenseManager
+          type: PsDesiredStateConfiguration/Service
+          properties:
+            name: LicenseManager
+            state: stopped
+            startupType: manual
+        - name: Disable lmhosts
+          type: PsDesiredStateConfiguration/Service
+          properties:
+            name: lmhosts
+            state: stopped
+            startupType: manual
+        - name: Disable MSDTC
+          type: PsDesiredStateConfiguration/Service
+          properties:
+            name: MSDTC
+            state: stopped
+            startupType: manual
+        - name: Disable PlugPlay
+          type: PsDesiredStateConfiguration/Service
+          properties:
+            name: PlugPlay
+            state: stopped
+            startupType: manual
+        - name: Disable ShellHWDetection
+          type: PsDesiredStateConfiguration/Service
+          properties:
+            name: ShellHWDetection
+            state: stopped
+            startupType: disabled
+        - name: Disable Spooler
+          type: PsDesiredStateConfiguration/Service
+          properties:
+            name: Spooler
+            state: stopped
+            startupType: manual
+        - name: Disable SSDPSRV
+          type: PsDesiredStateConfiguration/Service
+          properties:
+            name: SSDPSRV
+            state: stopped
+            startupType: disabled
+        - name: Disable StorSvc
+          type: PsDesiredStateConfiguration/Service
+          properties:
+            name: StorSvc
+            state: stopped
+            startupType: manual
+        - name: Disable SysMain
+          type: PsDesiredStateConfiguration/Service
+          properties:
+            name: SysMain
+            state: stopped
+            startupType: disabled
+        - name: Disable TokenBroker
+          type: PsDesiredStateConfiguration/Service
+          properties:
+            name: TokenBroker
+            state: stopped
+            startupType: manual
+        - name: Disable UsoSvc
+          type: PsDesiredStateConfiguration/Service
+          properties:
+            name: UsoSvc
+            state: stopped
+            startupType: manual
+        - name: Enable WinRM
+          type: PsDesiredStateConfiguration/Service
+          properties:
+            name: WinRM
+            state: running
+            startupType: automatic
+        - name: Disable WpnService
+          type: PsDesiredStateConfiguration/Service
+          properties:
+            name: WpnService
+            state: stopped
+            startupType: manual
+        - name: Disable WSearch
+          type: PsDesiredStateConfiguration/Service
+          properties:
+            name: WSearch
+            state: stopped
+            startupType: disabled
+
   - name: DisableMulticastDNS
     type: Microsoft.Windows/Registry
     properties:
@@ -1375,7 +1534,6 @@ resources:
   # DISABLE SYSTEM SCHEDULED TASKS
   ################################
 
-  
   # need service winRM started for now
   - name: Disable Micrsoft Compatibility Appraiser
     type: Microsoft.Windows/WindowsPowerShell
